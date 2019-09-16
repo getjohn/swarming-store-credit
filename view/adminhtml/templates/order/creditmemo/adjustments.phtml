@@ -1,0 +1,49 @@
+<?php
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+
+/** @var $block \Swarming\StoreCredit\Block\Adminhtml\Sales\Order\Creditmemo\Adjustments */
+?>
+<?php if ($block->isAvailable()): ?>
+<tr>
+    <td class="label"><?php /* @escapeNotVerified */ echo $block->getCreditsRefundLabel() ?><div id="swarming_credits_refund_adv"></div></td>
+    <td>
+        <input type="text"
+               name="creditmemo[swarming_credits_refund]"
+               value="<?php /* @escapeNotVerified */ echo $block->getCreditsRefund() ?>"
+               class="input-text admin__control-text not-negative-amount"
+               id="swarming_credits_refund" />
+
+        <script>
+            require(['prototype'], function(){
+
+                //<![CDATA[
+                Validation.addAllThese([
+                    ['not-negative-amount', '<?php /* @escapeNotVerified */ echo __('Please enter a positive number in this field.') ?>', function(v) {
+                        if(v.length)
+                            return /^\s*\d+([,.]\d+)*\s*%?\s*$/.test(v);
+                        else
+                            return true;
+                    }]
+                ]);
+
+                if ($('swarming_credits_refund')) {
+                    $('swarming_credits_refund').advaiceContainer = $('swarming_credits_refund_adv');
+                    unblockSubmit('swarming_credits_refund');
+                }
+
+                function unblockSubmit(id) {
+                    $(id).observe('focus', function(event) {
+                        if ($$('button[class="scalable update-button disabled"]').size() > 0) {
+                            enableElements('submit-button');
+                        }
+                    });
+                }
+                //]]>
+
+            });
+        </script>
+    </td>
+</tr>
+<?php endif; ?>

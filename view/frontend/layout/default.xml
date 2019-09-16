@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="top.links">
+            <block class="Swarming\StoreCredit\Block\TopLink" name="swarming-credits-link" after="my-account-link" template="Swarming_StoreCredit::link.phtml">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">50</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

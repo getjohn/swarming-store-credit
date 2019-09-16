@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/swarming/credits/apply" method="POST">
+        <service class="Swarming\StoreCredit\Api\CreditsManagementInterface" method="applyCredits"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/swarming/credits/add-transaction/:customerId" method="POST">
+        <service class="Swarming\StoreCredit\Api\TransactionCustomerInterface" method="addTransaction"/>
+        <resources>
+            <resource ref="Swarming_StoreCredit::api" />
+        </resources>
+    </route>
+
+    <route url="/V1/swarming/credits/balance/:customerId" method="GET">
+        <service class="Swarming\StoreCredit\Api\TransactionManagerInterface" method="getBalance"/>
+        <resources>
+            <resource ref="Swarming_StoreCredit::api" />
+        </resources>
+    </route>
+    <route url="/V1/swarming/credits/spent/:customerId" method="GET">
+        <service class="Swarming\StoreCredit\Api\TransactionManagerInterface" method="getTotalSpent"/>
+        <resources>
+            <resource ref="Swarming_StoreCredit::api" />
+        </resources>
+    </route>
+    <route url="/V1/swarming/credits/held/:customerId" method="GET">
+        <service class="Swarming\StoreCredit\Api\TransactionManagerInterface" method="getTotalHeld"/>
+        <resources>
+            <resource ref="Swarming_StoreCredit::api" />
+        </resources>
+    </route>
+</routes>

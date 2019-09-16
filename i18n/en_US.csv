@@ -1,0 +1,192 @@
+Amount,Amount
+Summary,Summary
+"Suppress Email","Suppress Email"
+"Store Credit","Store Credit"
+Adjustment,Adjustment
+Action,Action
+Submit,Submit
+ID,ID
+Type,Type
+Info,Info
+Balance,Balance
+Created,Created
+"%1 Refund","%1 Refund"
+"Total %1 Refunded","Total %1 Refunded"
+"Total %1 Paid","Total %1 Paid"
+"Total %1 Due","Total %1 Due"
+"This option is available on Website scope only if configuration setting: Customers > Customer Configuration > Account Sharing Options > Share Customer Accounts = Per Website","This option is available on Website scope only if configuration setting: Customers > Customer Configuration > Account Sharing Options > Share Customer Accounts = Per Website"
+"Please select type","Please select type"
+Unknown,Unknown
+"My %creditsName","My %creditsName"
+"Credits are saved.","Credits are saved."
+"An error occurred while data saving.","An error occurred while data saving."
+Swarming,Swarming
+Once,Once
+"Each day","Each day"
+Fixed,Fixed
+Percent,Percent
+"Add Transactions","Add Transactions"
+"The %1 amount must be positive.","The %1 amount must be positive."
+"The %1 amount must be equal or less than %2.","The %1 amount must be equal or less than %2."
+"Order {order}%1{order}, creditmemo {creditmemo}%2{creditmemo}","Order {order}%1{order}, creditmemo {creditmemo}%2{creditmemo}"
+"Order {order}%1{order}, invoice {invoice}%2{invoice}, creditmemo {creditmemo}%3{creditmemo}","Order {order}%1{order}, invoice {invoice}%2{invoice}, creditmemo {creditmemo}%3{creditmemo}"
+"Refunded amount of %1","Refunded amount of %1"
+"Order {order}%1{order}, invoice {invoice}%2{invoice}","Order {order}%1{order}, invoice {invoice}%2{invoice}"
+"Spent amount of %1","Spent amount of %1"
+"Order {order}%1{order} cancellation","Order {order}%1{order} cancellation"
+"Unheld amount of %1","Unheld amount of %1"
+"Order {order}%1{order}","Order {order}%1{order}"
+"Held amount of %1","Held amount of %1"
+"Cannot unhold.","Cannot unhold."
+"Not enough credits","Not enough credits"
+"Not enough credits was spent","Not enough credits was spent"
+"Not enough credits on hold","Not enough credits on hold"
+"You have reached your %1 limit which is %2.","You have reached your %1 limit which is %2."
+"You have gained only %1 %2 because you have reached your %2 limit which is %3.","You have gained only %1 %2 because you have reached your %2 limit which is %3."
+"%1 will expire on %2.","%1 will expire on %2."
+"%1 was expired.","%1 was expired."
+Processed.,Processed.
+"%1 still Held.","%1 still Held."
+"%1 Refunded.","%1 Refunded."
+"Action type is not set.","Action type is not set."
+"Action type is unknown.","Action type is unknown."
+"Amount is required.","Amount is required."
+"Amount must be a number.","Amount must be a number."
+"Amount must be greater than 0.","Amount must be greater than 0."
+"Manual adjustment.","Manual adjustment."
+"Totals calculation is not applicable to empty cart","Totals calculation is not applicable to empty cart"
+"Credit with id ""%1"" does not exist.","Credit with id ""%1"" does not exist."
+"Credit for customer id ""%1"" does not exist.","Credit for customer id ""%1"" does not exist."
+"Could not save credit: %1","Could not save credit: %1"
+"Could not delete the credit: %1","Could not delete the credit: %1"
+"Transaction link with id ""%1"" does not exist.","Transaction link with id ""%1"" does not exist."
+"Could not save transaction link: %1","Could not save transaction link: %1"
+"Could not delete the transaction link: %1","Could not delete the transaction link: %1"
+"Credits order attribute with id ""%1"" does not exist.","Credits order attribute with id ""%1"" does not exist."
+"Credits order attribute is not found for order with id ""%1"".","Credits order attribute is not found for order with id ""%1""."
+"Could not save credits order attribute: %1","Could not save credits order attribute: %1"
+"Could not delete the credits order attribute: %1","Could not delete the credits order attribute: %1"
+"Credits creditmemo attribute with id ""%1"" does not exist.","Credits creditmemo attribute with id ""%1"" does not exist."
+"Credits creditmemo attribute is not found for creditmemo with id ""%1"".","Credits creditmemo attribute is not found for creditmemo with id ""%1""."
+"Could not save credits creditmemo attribute: %1","Could not save credits creditmemo attribute: %1"
+"Could not delete the credits creditmemo attribute: %1","Could not delete the credits creditmemo attribute: %1"
+"Credits invoice attribute with id ""%1"" does not exist.","Credits invoice attribute with id ""%1"" does not exist."
+"Credits invoice attribute is not found invoice with id ""%1"".","Credits invoice attribute is not found invoice with id ""%1""."
+"Could not save credits invoice attribute: %1","Could not save credits invoice attribute: %1"
+"Could not delete the credits invoice attribute: %1","Could not delete the credits invoice attribute: %1"
+"Credits quote attribute with id ""%1"" does not exist.","Credits quote attribute with id ""%1"" does not exist."
+"Credits quote attribute is not found for quote with id ""%1"".","Credits quote attribute is not found for quote with id ""%1""."
+"Could not save credits quote attribute: %1","Could not save credits quote attribute: %1"
+"Could not delete the credits quote attribute: %1","Could not delete the credits quote attribute: %1"
+"Credits for the customer are not found.","Credits for the customer are not found."
+"Transaction with id ""%1"" does not exist.","Transaction with id ""%1"" does not exist."
+"Could not save transaction: %1","Could not save transaction: %1"
+"Could not delete the transaction: %1","Could not delete the transaction: %1"
+"Add Store Credit","Add Store Credit"
+Add,Add
+"Subtract Store Credit","Subtract Store Credit"
+Subtract,Subtract
+"Customer Store Credit","Customer Store Credit"
+"Total Pending","Total Pending"
+"Total Earned","Total Earned"
+"Total Spent","Total Spent"
+"Total Held","Total Held"
+"Last Action","Last Action"
+"Max Available","Max Available"
+Max,Max
+Apply,Apply
+Cancel,Cancel
+"Please enter a positive number in this field.","Please enter a positive number in this field."
+Transactions,Transactions
+Updated,Updated
+"You have made no transactions.","You have made no transactions."
+"%1 will expire on %2","%1 will expire on %2"
+"%customer_name,","%customer_name,"
+"The life time for your %credits_name at %website_name is %life_time days.","The life time for your %credits_name at %website_name is %life_time days."
+"After expiration date you won't be able to use them.","After expiration date you won't be able to use them."
+"Your credits will expire:","Your credits will expire:"
+"Your current balance is %credits_balance.","Your current balance is %credits_balance."
+"If you have questions about your %credits_name balance, you can email us at <a href=""mailto:%store_email"">%store_email</a>","If you have questions about your %credits_name balance, you can email us at <a href=""mailto:%store_email"">%store_email</a>"
+"There were added %transaction_amount %credits_name to your balance at %website_name.","There were added %transaction_amount %credits_name to your balance at %website_name."
+"The life time for your %credits_name at %website_name is %credits_life_time days.","The life time for your %credits_name at %website_name is %credits_life_time days."
+"Please use the %credits_name you got before %expiration_date","Please use the %credits_name you got before %expiration_date"
+%transaction_comment,%transaction_comment
+"Your current %credits_name balance is %credits_balance.","Your current %credits_name balance is %credits_balance."
+"Due to order #%order_id cancellation at %website_name %transaction_amount were added to your %credits_name balance.","Due to order #%order_id cancellation at %website_name %transaction_amount were added to your %credits_name balance."
+"%transaction_amount %credits_name were held from your balance for the order #%order_id at %website_name.","%transaction_amount %credits_name were held from your balance for the order #%order_id at %website_name."
+"Due to refund for the the order #%order_id at %website_name %transaction_amount were added to your %credits_name balance.","Due to refund for the the order #%order_id at %website_name %transaction_amount were added to your %credits_name balance."
+"You have spent %transaction_amount %credits_name in the order #%order_id at %website_name.","You have spent %transaction_amount %credits_name in the order #%order_id at %website_name."
+"There were subtracted %transaction_amount %credits_name from your balance at %website_name.","There were subtracted %transaction_amount %credits_name from your balance at %website_name."
+"Amount should be a number equal or greater than 0.","Amount should be a number equal or greater than 0."
+General,General
+Enabled,Enabled
+"Exchange Rate","Exchange Rate"
+"Unit of Currency per Amount of Store Credit. Example: 1/10 = $1 for 10 Store Credit.","Unit of Currency per Amount of Store Credit. Example: 1/10 = $1 for 10 Store Credit."
+"Allow Fractional Amount","Allow Fractional Amount"
+"If disabled, Store Credit will round up to the next whole number.","If disabled, Store Credit will round up to the next whole number."
+"Maximum Store Credit per account","Maximum Store Credit per account"
+"Leave 0 for unlimited","Leave 0 for unlimited"
+Display,Display
+"Customer Checkout Display Name","Customer Checkout Display Name"
+"Displayed on shopping cart and checkout pages.","Displayed on shopping cart and checkout pages."
+"Store Credit Frontend Name","Store Credit Frontend Name"
+"The name used for your Store Credit type (Points, Credits, etc)","The name used for your Store Credit type (Points, Credits, etc)"
+"Credit Icon","Credit Icon"
+"Allowed file types: PNG, GIF, JPG, JPEG.","Allowed file types: PNG, GIF, JPG, JPEG."
+"Credit Abbreviation","Credit Abbreviation"
+"(PT, CR, etc)","(PT, CR, etc)"
+"Credit Label Format","Credit Label Format"
+"Use {{icon}} {{name}} {{symbol}} {{credits}} and {{currency_amount}}.","Use {{icon}} {{name}} {{symbol}} {{credits}} and {{currency_amount}}."
+"Grid Label Format","Grid Label Format"
+"Use {{name}} {{symbol}} {{credits}} and {{currency_amount}}.","Use {{name}} {{symbol}} {{credits}} and {{currency_amount}}."
+"Store Credit Total Label Format","Store Credit Total Label Format"
+Refund,Refund
+"Allow Refund","Allow Refund"
+"Refund Store Credit as Currency","Refund Store Credit as Currency"
+Expiration,Expiration
+"Expiration Time In Days","Expiration Time In Days"
+"Leave 0 for unlimited.","Leave 0 for unlimited."
+"Send Reminder Email (X) Days Before Expiration","Send Reminder Email (X) Days Before Expiration"
+"Leave 0 for disabling.","Leave 0 for disabling."
+"Expiration Email Repeats","Expiration Email Repeats"
+"Expiration Email Template","Expiration Email Template"
+Spending,Spending
+"Error Message for Customer","Error Message for Customer"
+"Enable Limit Per Order","Enable Limit Per Order"
+"Limit Type","Limit Type"
+"Spend Limit (in %)","Spend Limit (in %)"
+"Maximum Store Credit per order","Maximum Store Credit per order"
+"Set amount in base currency. Leave 0 for unlimited","Set amount in base currency. Leave 0 for unlimited"
+Notifications,Notifications
+"Send Email From","Send Email From"
+"Enable Balance Notifications","Enable Balance Notifications"
+"Notify on Action Type","Notify on Action Type"
+"Template For ""Add"" Action","Template For ""Add"" Action"
+"Template used when adding Store Credit to customer's account.","Template used when adding Store Credit to customer's account."
+"Template For ""Subtract"" Action","Template For ""Subtract"" Action"
+"Template used when subtracting Store Credit from a customer's account.","Template used when subtracting Store Credit from a customer's account."
+"Template For ""On Hold"" Action","Template For ""On Hold"" Action"
+"Template used when holding Store Credit from a customer.","Template used when holding Store Credit from a customer."
+"Template For ""Cancel"" Action","Template For ""Cancel"" Action"
+"Template used when cancelling a customer's transaction.","Template used when cancelling a customer's transaction."
+"Template For ""Spend"" Action","Template For ""Spend"" Action"
+"Template used when a customer spends Store Credit.","Template used when a customer spends Store Credit."
+"Template For ""Refund"" Action","Template For ""Refund"" Action"
+"Template used when refunding spent Store Credit.","Template used when refunding spent Store Credit."
+"On Hold","On Hold"
+Spend,Spend
+Group,Group
+Select...,Select...
+Website,Website
+20,20
+30,30
+50,50
+100,100
+200,200
+"Customer ID","Customer ID"
+Name,Name
+Email,Email
+"Customer Group","Customer Group"
+"Customer Web Site","Customer Web Site"
+"Current Balance","Current Balance"
+"Last Action In","Last Action In"

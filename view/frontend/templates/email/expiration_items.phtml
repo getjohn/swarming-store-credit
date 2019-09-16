@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+
+/** @var Magento\Framework\View\Element\Template $block */
+?>
+<ul>
+    <?php foreach ((array)$block->getData('expiration_items') as $item): ?>
+        <li><?php echo __('%1 will expire on %2', $item['amount'], $item['date']) ?></li>
+    <?php endforeach; ?>
+</ul>

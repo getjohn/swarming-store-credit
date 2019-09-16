@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="sales_convert_quote">
+            <field name="swarming_credits">
+                <aspect name="to_order" />
+            </field>
+            <field name="swarming_credits_amount">
+                <aspect name="to_order" />
+            </field>
+            <field name="base_swarming_credits_amount">
+                <aspect name="to_order" />
+            </field>
+        </fieldset>
+    </scope>
+</config>

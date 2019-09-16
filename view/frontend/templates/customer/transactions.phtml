@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+
+/* @var $block \Swarming\StoreCredit\Block\Customer\Transactions */
+?>
+<?php $transactions = $block->getTransactions(); ?>
+
+<?php if ($transactions && count($transactions)): ?>
+    <div class="table-wrapper">
+        <table class="data table" id="my-swarming-credits-transaction-table">
+            <caption class="table-caption"><?php echo __('Transactions') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col date"><?php echo __('Updated') ?></th>
+                    <th scope="col" class="col type"><?php echo __('Type') ?></th>
+                    <th scope="col" class="col amount"><?php echo __('Amount') ?></th>
+                    <th scope="col" class="col amount"><?php echo __('Info') ?></th>
+                    <th scope="col" class="col summary"><?php echo __('Summary') ?></th>
+                    <th scope="col" class="col balance"><?php echo __('Balance') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php /** @var $transaction \Swarming\StoreCredit\Api\Data\TransactionInterface */ ?>
+            <?php foreach ($transactions as $transaction): ?>
+                <tr>
+                    <td data-th="<?php echo $block->escapeHtml(__('Updated')) ?>" class="col date"><?php echo $block->formatDate($transaction->getAtTime()) ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Type')) ?>" class="col type"><?php echo $transaction->getTypeLabel() ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Amount')) ?>" class="col amount"><?php echo $block->formatCreditsGrid($transaction->getAmount(), $transaction) ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Info')) ?>" class="col amount"><?php echo $block->getAmountInfo($transaction) ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Summary')) ?>" class="col summary"><?php echo $block->getSummary($transaction) ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Balance')) ?>" class="col balance"><?php echo $block->formatCreditsGrid($transaction->getBalance(), $transaction) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="swarming-credits-transaction-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('You have made no transactions.'); ?></span></div>
+<?php endif ?>
+

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_ImportExport:etc/import.xsd">
+    <entity name="swarming_credits" label="Store Credits" model="Swarming\StoreCredit\Model\Import\Adapter" behaviorModel="Swarming\StoreCredit\Model\Import\Behavior\Add" />
+</config>

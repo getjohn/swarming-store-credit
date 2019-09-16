@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="payment_cart_collect_items_and_amounts">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Payment\AddCreditsSubtotal" />
+    </event>
+    <event name="sales_quote_collect_totals_before">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Quote\CollectTotalsBefore" />
+    </event>
+    <event name="sales_convert_quote_to_order">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Quote\ConvertToOrder" />
+    </event>
+    <event name="sales_order_save_after">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Order\PlaceAfter" />
+    </event>
+    <event name="order_cancel_after">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Order\CancelAfter" />
+    </event>
+    <event name="sales_order_invoice_save_after">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Order\Invoice\AfterSave" />
+    </event>
+    <event name="sales_order_invoice_process_relation">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Order\Invoice\ProcessRelation" />
+    </event>
+    <event name="adminhtml_sales_order_creditmemo_register_before">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Order\Creditmemo\Adjustment" />
+    </event>
+    <event name="sales_order_creditmemo_save_after">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Order\Creditmemo\AfterSave" />
+    </event>
+    <event name="sales_order_creditmemo_process_relation">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Order\Creditmemo\ProcessRelation" />
+    </event>
+    <event name="swarming_credits_transaction_add_after">
+        <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Credits\Notification\TransactionAction"/>
+    </event>
+</config>

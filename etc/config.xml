@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <swarming_credits>
+            <general>
+                <exchange_rate>1/1</exchange_rate>
+                <allow_fractional>1</allow_fractional>
+                <max>0</max>
+            </general>
+            <display>
+                <block_title>Use Store Credit</block_title>
+                <name>Store Credit</name>
+                <symbol>SC</symbol>
+                <base_format>{{icon}} {{credits}} {{name}} ({{currency_amount}})</base_format>
+                <html_free_format>{{credits}} {{name}} ({{currency_amount}})</html_free_format>
+                <grid_format>{{credits}}{{symbol}}</grid_format>
+                <total_format>{{credits}}{{symbol}} ({{currency_amount}})</total_format>
+            </display>
+            <refund>
+                <refund_enabled>1</refund_enabled>
+                <refund_currency_enabled>0</refund_currency_enabled>
+            </refund>
+            <expiration>
+                <life_time>0</life_time>
+                <expiration_reminder_days>5</expiration_reminder_days>
+                <expiration_repeats>once</expiration_repeats>
+                <expiration_template>swarming_credits_expiration_expiration_template</expiration_template>
+            </expiration>
+            <spending>
+                <error_message>Value cannot be greater than Order Total</error_message>
+                <enable_limit>0</enable_limit>
+                <limit_type>fixed</limit_type>
+                <spend_percent>100</spend_percent>
+                <spend_fixed>0</spend_fixed>
+            </spending>
+            <notification>
+                <email_sender>general</email_sender>
+                <balance_update_notify>1</balance_update_notify>
+                <transactions_notify>add,earn,subtract,spend,refund</transactions_notify>
+                <transactions_add_template>swarming_credits_notification_transactions_add_template</transactions_add_template>
+                <transactions_earn_template>swarming_credits_notification_transactions_earn_template</transactions_earn_template>
+                <transactions_subtract_template>swarming_credits_notification_transactions_subtract_template</transactions_subtract_template>
+                <transactions_hold_template>swarming_credits_notification_transactions_hold_template</transactions_hold_template>
+                <transactions_cancel_template>swarming_credits_notification_transactions_cancel_template</transactions_cancel_template>
+                <transactions_spend_template>swarming_credits_notification_transactions_spend_template</transactions_spend_template>
+                <transactions_refund_template>swarming_credits_notification_transactions_refund_template</transactions_refund_template>
+            </notification>
+        </swarming_credits>
+    </default>
+</config>

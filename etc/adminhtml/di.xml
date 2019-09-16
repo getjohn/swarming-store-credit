@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Block\Adminhtml\Order\Invoice\Create\Items">
+        <plugin name="swarmingCreditsInvoiceEditQty" type="Swarming\StoreCredit\Plugin\Sales\Order\Invoice\EditQty" />
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\Creditmemo\Create\Items">
+        <plugin name="swarmingCreditsCreditmemoEditQty" type="Swarming\StoreCredit\Plugin\Sales\Order\Creditmemo\EditQty" />
+    </type>
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="swarmingCreditsRefund" type="Swarming\StoreCredit\Plugin\Sales\Order\CanCreditmemo" />
+    </type>
+    <type name="Magento\Sales\Model\Order\Invoice">
+        <plugin name="swarmingCreditsRefund" type="Swarming\StoreCredit\Plugin\Sales\Order\Invoice\CanRefund" />
+    </type>
+
+    <type name="Swarming\StoreCredit\Block\Adminhtml\Transaction\Form\Field\Options\Type">
+        <arguments>
+            <argument name="adminTransactions" xsi:type="array">
+                <item name="add" xsi:type="const">Swarming\StoreCredit\Api\Data\TransactionInterface::TYPE_ADD</item>
+                <item name="subtract" xsi:type="const">Swarming\StoreCredit\Api\Data\TransactionInterface::TYPE_SUBTRACT</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Swarming\StoreCredit\Helper\TransactionSummary">
+        <arguments>
+            <argument name="templates" xsi:type="array">
+                <item name="order" xsi:type="array">
+                    <item name="path" xsi:type="string">sales/order/view</item>
+                    <item name="key" xsi:type="string">order_id</item>
+                </item>
+                <item name="invoice" xsi:type="array">
+                    <item name="path" xsi:type="string">sales/order_invoice/view</item>
+                    <item name="key" xsi:type="string">invoice_id</item>
+                </item>
+                <item name="creditmemo" xsi:type="array">
+                    <item name="path" xsi:type="string">sales/order_creditmemo/view</item>
+                    <item name="key" xsi:type="string">creditmemo_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

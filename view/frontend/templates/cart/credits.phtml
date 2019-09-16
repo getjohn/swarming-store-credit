@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+?>
+<?php
+/**
+ * Shopping cart credits template
+ * @var $block \Swarming\StoreCredit\Block\Cart\Credits
+ */
+?>
+<?php if ($block->isActive()): ?>
+    <div id="block-swarming-credits" class="block block-swarming-credits"  data-mage-init='{"collapsible":{"openedState": "active", "active": true, "saveState": true}}'>
+        <div class="title" data-role="title">
+            <strong id="block-swarming-credits-heading" role="heading" aria-level="2"><?php echo $block->getBlockTitle() ?></strong>
+        </div>
+        <div class="content" data-role="content" id="cart-swarming-credits" data-bind="scope:'cart-swarming-credits'" aria-labelledby="block-swarming-credits-heading">
+            <!-- ko foreach: elems() -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+        <script type="text/x-magento-init">
+            {
+                "#cart-swarming-credits": {
+                    "Magento_Ui/js/core/app": <?php echo $block->getJsLayout();?>
+                }
+            }
+        </script>
+    </div>
+<?php endif; ?>

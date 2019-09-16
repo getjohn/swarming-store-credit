@@ -1,0 +1,32 @@
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<div class="swarming-credits-actions">
+    <div data-bind="visible: errorMessage(), css: { 'message error': errorMessage() }"><span data-bind="text: errorMessage()"></span></div>
+    <label class="label" for="swarming-credits-amount">
+        <span data-bind="text: $t('Amount')"></span>
+    </label>
+    <div class="control">
+        <input type="text" data-bind="textInput: amount, attr : {'disabled' : isDisabled()}" class="swarming-credits-amount" id="swarming-credits-amount" value=""/>
+    </div>
+    <div class="swarming-credits-amount-max-wrapper">
+        <label for="swarming-credits-amount-max">
+            <input type="checkbox" data-bind="checked: maxAmount"  class="swarming-credits-amount-max" id="swarming-credits-amount-max" />
+            <span data-bind="text: $t('Use All Available')"></span>
+        </label>
+    </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button class="action action-apply" data-bind="click: applyCredits, 'value': $t('Apply'), attr : {'disabled' : isApplyDisabled()}" type="button">
+                <span><!-- ko i18n: 'Apply'--><!-- /ko --></span>
+            </button>
+            <!-- ko if: isApplied() -->
+            <button class="action action-cancel" data-bind="'value': $t('Cancel'), click: cancelCredits" type="button">
+                <span><!-- ko i18n: 'Cancel'--><!-- /ko --></span>
+            </button>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>

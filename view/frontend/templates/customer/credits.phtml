@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+
+/* @var $block \Swarming\StoreCredit\Block\Customer\Credits */
+?>
+<?php $credits = $block->getCredits(); ?>
+
+<?php if ($block->getCredits()): ?>
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    <th><?php echo __('Balance') ?>:</th>
+                    <td><?php echo $block->formatCreditsBase($credits->getBalance()) ?></td>
+                </tr>
+                <?php if ($credits->getTotalPending() > 0): ?>
+                    <tr>
+                        <th><?php echo __('Total Pending') ?>:</th>
+                        <td><?php echo $block->formatCreditsBase($credits->getTotalPending()) ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($credits->getTotalEarned() > 0): ?>
+                    <tr>
+                        <th><?php echo __('Total Earned') ?>:</th>
+                        <td><?php echo $block->formatCreditsBase($credits->getTotalEarned()) ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($credits->getTotalSpent() > 0): ?>
+                    <tr>
+                        <th><?php echo __('Total Spent') ?>:</th>
+                        <td><?php echo $block->formatCreditsBase($credits->getTotalSpent()) ?></td>
+                    </tr>
+                <?php endif; ?>
+                <?php if ($credits->getTotalHeld() > 0): ?>
+                    <tr>
+                        <th><?php echo __('Total Held') ?>:</th>
+                        <td><?php echo $block->formatCreditsBase($credits->getTotalHeld()) ?></td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif; ?>

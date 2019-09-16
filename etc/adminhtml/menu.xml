@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Swarming_StoreCredit::credits_head" parent="Magento_Backend::marketing" title="Store Credit" resource="Swarming_StoreCredit::credits" module="Swarming_StoreCredit" sortOrder="10"/>
+        <add id="Swarming_StoreCredit::credits_list" parent="Swarming_StoreCredit::credits_head" title="Store Credit List" action="swarming_credits/index/" resource="Swarming_StoreCredit::credits" module="Swarming_StoreCredit" sortOrder="20"/>
+    </menu>
+</config>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <container name="root" label="Root">
+        <block class="Swarming\StoreCredit\Block\Adminhtml\Customer\CreditsTab\Info" name="adminhtml.customer.edit.tab.credits.info" template="Swarming_StoreCredit::customer/credits_tab/info.phtml">
+            <block class="Swarming\StoreCredit\Block\Adminhtml\Customer\CreditsTab\Adjustment" name="adminhtml.customer.edit.tab.credits.adjustment" as="adjustment" template="Swarming_StoreCredit::customer/credits_tab/adjustment.phtml"/>
+        </block>
+        <block class="Swarming\StoreCredit\Block\Adminhtml\Customer\CreditsTab\Transactions" name="adminhtml.customer.edit.tab.credits.transactions"/>
+    </container>
+</layout>

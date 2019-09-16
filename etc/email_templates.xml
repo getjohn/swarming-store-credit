@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="swarming_credits_notification_transactions_add_template" label="Transaction Add Template" file="transactions_add.html" type="html" module="Swarming_StoreCredit" area="frontend"/>
+    <template id="swarming_credits_notification_transactions_subtract_template" label="Transaction Subtract Template" file="transactions_subtract.html" type="html" module="Swarming_StoreCredit" area="frontend"/>
+    <template id="swarming_credits_notification_transactions_hold_template" label="Transaction On Hold Template" file="transactions_hold.html" type="html" module="Swarming_StoreCredit" area="frontend"/>
+    <template id="swarming_credits_notification_transactions_cancel_template" label="Transaction Cancel Template" file="transactions_cancel.html" type="html" module="Swarming_StoreCredit" area="frontend"/>
+    <template id="swarming_credits_notification_transactions_spend_template" label="Transaction Spend Template" file="transactions_spend.html" type="html" module="Swarming_StoreCredit" area="frontend"/>
+    <template id="swarming_credits_notification_transactions_refund_template" label="Transaction Refund Template" file="transactions_refund.html" type="html" module="Swarming_StoreCredit" area="frontend"/>
+    <template id="swarming_credits_expiration_expiration_template" label="Credits Expiration" file="expiration_notification.html" type="html" module="Swarming_StoreCredit" area="frontend"/>
+</config>

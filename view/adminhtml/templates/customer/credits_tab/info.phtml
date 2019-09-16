@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+
+/** @var $block \Swarming\StoreCredit\Block\Adminhtml\Customer\CreditsTab\Info */
+?>
+
+<?php $credits = $block->getCredits(); ?>
+
+<?php if ($credits): ?>
+    <div class="fieldset-wrapper swarming-credits-information" style="float:left; width: 44%;">
+        <div class="fieldset-wrapper-title">
+            <span class="title"><?php echo __('Customer Store Credit') ?></span>
+        </div>
+        <table class="admin__table-secondary">
+            <tbody>
+                <tr>
+                    <th><?php echo __('Balance') ?>:</th>
+                    <td><?php echo $block->formatCurrency($credits->getBalance()) ?></td>
+                </tr>
+                <tr>
+                    <th><?php echo __('Total Pending') ?>:</th>
+                    <td><?php echo $block->formatCurrency($credits->getTotalPending()) ?></td>
+                </tr>
+                <tr>
+                    <th><?php echo __('Total Earned') ?>:</th>
+                    <td><?php echo $block->formatCurrency($credits->getTotalEarned()) ?></td>
+                </tr>
+                <tr>
+                    <th><?php echo __('Total Spent') ?>:</th>
+                    <td><?php echo $block->formatCurrency($credits->getTotalSpent()) ?></td>
+                </tr>
+                <tr>
+                    <th><?php echo __('Total Held') ?>:</th>
+                    <td><?php echo $block->formatCurrency($credits->getTotalHeld()) ?></td>
+                </tr>
+                <tr>
+                    <th><?php echo __('Last Action') ?>:</th>
+                    <td><?php echo $block->formatDate($credits->getLastAction()) ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <?php echo $block->getChildHtml('adjustment') ?>
+<?php endif; ?>

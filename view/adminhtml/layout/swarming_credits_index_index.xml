@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="formkey"/>
+    <head>
+        <link src="Swarming_StoreCredit::js/credits/action.js"/>
+        <css src="Swarming_StoreCredit::css/credits/action.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="swarming_credits_listing"/>
+            <block class="Swarming\StoreCredit\Block\Adminhtml\Customer\Credits\Action" template="Swarming_StoreCredit::credits/modal-actions.phtml" />
+        </referenceContainer>
+    </body>
+</page>

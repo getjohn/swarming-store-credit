@@ -1,0 +1,24 @@
+Index: Model/Cart/CartTotalRepository.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Model/Cart/CartTotalRepository.php	(revision f3f8975c3f48ad8d2a3221153bcce9f82a5b84b8)
++++ Model/Cart/CartTotalRepository.php	(date 1519925959000)
+@@ -12,6 +12,7 @@
+ use Magento\Framework\Api\DataObjectHelper;
+ use Magento\Quote\Model\Cart\Totals\ItemConverter;
+ use Magento\Quote\Api\CouponManagementInterface;
++use Magento\Framework\Api\ExtensibleDataInterface;
+ 
+ /**
+  * Cart totals data object.
+@@ -95,6 +96,8 @@
+             $addressTotals = $quote->getShippingAddress()->getTotals();
+         }
+ 
++        unset($addressTotalsData[ExtensibleDataInterface::EXTENSION_ATTRIBUTES_KEY]);
++
+         /** @var \Magento\Quote\Api\Data\TotalsInterface $quoteTotals */
+         $quoteTotals = $this->totalsFactory->create();
+         $this->dataObjectHelper->populateWithArray(

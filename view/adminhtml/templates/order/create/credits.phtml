@@ -1,0 +1,59 @@
+<?php
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+?>
+<?php
+/**
+ * @var $block \Swarming\StoreCredit\Block\Adminhtml\Sales\Order\Create\Credits
+ */
+?>
+<?php if ($block->isAvailable()): ?>
+    <div id="order-swarming-credits-form">
+        <dl class="admin__payment-methods">
+            <dt class="admin__field-option">
+                <label class="admin__field-label"><?php echo $block->escapeHtml($block->getTitle()) ?></label>
+            </dt>
+            <dd class="admin__payment-method-wrapper">
+                <div class="swarming-credits-balance">
+                    <label class="mark"><?php echo __('Balance') ?></label>
+                    <span><?php echo $block->formatCurrency($block->getCreditsBalance()) ?></span>
+                </div>
+                <div class="swarming-credits-actions">
+                    <label class="label" for="swarming-credits-amount">
+                        <span><?php echo __('Amount') ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="text" class="swarming-credits-amount" id="swarming-credits-amount" name="swarming-credits-amount" value="<?php echo $block->getQuoteCredits() ?>" title="<?php __('Amount') ?>" />
+                        <input type="checkbox" class="swarming-credits-max" id="swarming-credits-amount-max" title="<?php __('Max Available') ?>" />
+                        <label for="swarming-credits-amount-max">
+                            <span><?php echo __('Max') ?></span>
+                        </label>
+                    </div>
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button class="action action-apply" type="button">
+                                <span><?php echo __('Apply') ?></span>
+                            </button>
+                            <button class="action action-cancel" type="button">
+                                <span><?php echo __('Cancel') ?></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <script>
+        require(["jquery", "jquery/ui"], function ($) {
+            $(function(){
+                $('#order-swarming-credits-form').orderCredits({
+                    amount: <?php echo $block->getQuoteCredits() ?>,
+                    maxAmount: <?php echo $block->getQuoteMaxAmount() ?>,
+                    callback: function(credits) { order.loadArea(['billing_method', 'totals'], true, {swarming_credits: credits}); }
+                });
+            });
+        });
+    </script>
+<?php endif; ?>
+

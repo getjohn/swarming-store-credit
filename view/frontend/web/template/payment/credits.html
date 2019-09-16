@@ -1,0 +1,19 @@
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<!-- ko if: isAvailable() -->
+<div class="payment-option opc-payment-additional swarming-credits-actions">
+    <div class="payment-option-title field choice" data-role="title">
+        <span class="action" id="block-swarming-credits-heading" role="heading" aria-level="2">
+            <!-- ko text: getBlockTitle() --><!-- /ko -->
+        </span>
+    </div>
+    <div class="payment-option-content" data-role="content">
+        <!-- ko foreach: elems() -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</div>
+<!-- /ko -->

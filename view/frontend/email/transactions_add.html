@@ -1,0 +1,43 @@
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<!--@subject Balance Updated @-->
+<!--@vars {
+"template config_path=\"design\/email\/footer_template\"":"Email Footer Template",
+"template config_path=\"design\/email\/header_template\"":"Email Header Template"
+} @-->
+
+
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">Hi {{trans "%customer_name," customer_name=$customer.getName()}}</p>
+            <p>
+                {{trans "There were added %transaction_amount %credits_name to your balance at %website_name." transaction_amount=$transaction_amount credits_name=$credits_name website_name=$website_name |raw}}
+            </p>
+            <p>
+                {{depend credits_life_time}}
+                {{trans "The life time for your %credits_name at %website_name is %credits_life_time days." credits_name=$credits_name credits_life_time=$credits_life_time website_name=$website_name |raw}}
+                {{trans "Please use the %credits_name you got before %expiration_date" credits_name=$credits_name expiration_date=$expiration_date |raw}}
+                {{/depend}}
+            </p>
+            <p>
+                {{depend transaction_comment}}
+                {{trans "%transaction_comment" transaction_comment=$transaction_comment |raw}}
+                {{/depend}}
+            </p>
+            <p>
+                {{trans "Your current %credits_name balance is %credits_balance." credits_name=$credits_name credits_balance=$credits_balance |raw}}
+            </p>
+            <p>
+                {{trans "If you have questions about your %credits_name balance, you can email us at <a href="mailto:%store_email">%store_email</a>" credits_name=$credits_name store_email=$store_email |raw}}
+            </p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

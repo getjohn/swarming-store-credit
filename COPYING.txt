@@ -1,0 +1,77 @@
+=========================================================
+Software License Information
+----------------------------
+
+
+Product Name: Magento 2 Store Credit
+License Type: Commercial for one (1) Magento installation
+SKU: magento2-store-credit
+
+
+=========================================================
+License Agreement
+------------------
+
+Swarming Technology
+http://swarmingtech.com
+
+This License is entered into between you and Swarming Technology to govern the usage or redistribution of Swarming Technology software. This is a legal agreement between you (either an individual or a single entity) and Swarming Technology for Swarming Technology software product(s) which may include extensions, templates and services.
+
+By purchasing, installing, or otherwise using Swarming Technology products, you acknowledge that you have read this License and agree to be bound by the terms of this Agreement.
+If you do not agree to the terms of this License, do not install or use Swarming Technology products.
+
+The Agreement becomes effective at the moment when you acquire software from our site or receive it through email, download it from an authorized seller, or on data medium or by any other means.
+Swarming Technology reserves the right, at its discretion, to change, modify, add or remove portions of this License Agreement by posting the updated License Agreement on Swarming Technology’s website. You will be deemed to have accepted such changes by continuing to use the Swarming Technology Software. If any provision of this License Agreement is held to be unenforceable for any reason, such provision shall be reformed only to the extent necessary to make it enforceable and the remaining provisions of this License Agreement shall not be affected.
+
+1. GRANT OF LICENSE
+
+Swarming Technology grants you a revocable, non-exclusive, non-transferable, limited right to install and use the Software according to the terms of this License. By purchasing the License to use the Swarming Technology Software:
+
+- Customer will receive source code 100% open.
+
+- Customer will obtain a License Certificate which will remain valid until the Customer stops using the Product or until Swarming Technology terminates this License because of Customer's failure to comply with any of its Terms and Conditions. Each License Certificate includes a license serial which is valid for one live Magento installation only and unlimited test Magento installations.
+
+- You are allowed to customize our products to fit with your using purpose.
+
+
+2. DESCRIPTION OF OTHER RIGHTS AND LIMITATIONS
+
+(a) Installation and Use
+    For each new Software installation, you are obliged to purchase a separate License.
+    You are not permitted to use any part of the code in whole or part in any other software or product or website.
+    You are legally bound to preserve the copyright information intact including the text/link at bottom.
+
+(b) Distribution
+    You are not allowed to distribute Swarming Technology software to third parties.
+    Any distribution without our permission, including non-commercial distribution is considered a violation of this Agreement and entails liability, according to the current law. You may not place the Software onto a server that allows access to the Software via a public network or the Internet for distribution purposes.
+
+(c) Rental
+    You may not give, sell, sub-license, rent, lease or lend any portion of the Software to anyone.
+
+(d) Compliance with Applicable Laws
+    You must comply with all applicable laws regarding use of software products.
+    Swarming Technology software and a portion of it are protected by copyright laws and international copyright treaties, as well as other intellectual property laws and treaties. Accordingly, customer is required to treat the software like any other copyrighted material. Any activity violating copyright law will be prosecuted according to the current law. We retain the right to revoke the license of any user holding an invalid license.
+
+3. TERMINATION
+    Without prejudice to any other rights, Swarming Technology may terminate this License at any time if you fail to comply with the terms and conditions of this License.
+    In such event, it constitutes a breach of the agreement, and your license to use the program is revoked and you must destroy all copies of Swarming Technology products in your possession.
+    After being notified of termination of your license, if you continue to use Swarming Technology software, you hereby agree to accept an injunction to prevent you from its further use and to pay all costs (including but not limited to reasonable attorney fees) to enforce our revocation of your license and any damages suffered by us because of your misuse of the Software.
+    We are not bound to return to you the amount spent for purchase of the Software if we terminate this License due to your breach of the License Agreement.
+
+4. LIMITATION OF LIABILITY
+    TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT SHALL SWARMING TECHNOLOGY BE LIABLE FOR PERSONAL INJURY OR ANY INCIDENTAL, SPECIAL, INDIRECT, OR CONSEQUENTIAL DAMAGES WHATSOEVER, INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF PROFITS, LOSS OF DATA, BUSINESS INTERRUPTION, OR ANY OTHER COMMERCIAL DAMAGES OR LOSSES, ARISING OUT OF OR RELATED TO YOUR USE OF OR INABILITY TO USE THE SOFTWARE, HOWEVER CAUSED, REGARDLESS OF THE THEORY OF LIABILITY (CONTRACT, TORT, OR OTHERWISE) AND EVEN IF SWARMING TECHNOLOGY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. SOME JURISDICTIONS DO NOT ALLOW THE LIMITATION OF LIABILITY FOR PERSONAL INJURY, OR OF INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THIS LIMITATION MAY NOT APPLY TO YOU. In no event shall Swarming Technology’s total liability to you for all damages (other than as may be required by applicable law in cases involving personal injury) exceed the amount of fifty dollars ($50.00). The foregoing limitations will apply even if the above stated remedy fails of its essential purpose.
+
+
+5. DISCLAIMER OF WARRANTIES
+YOU EXPRESSLY ACKNOWLEDGE AND AGREE THAT USE OF THE SOFTWARE IS AT YOUR SOLE RISK. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE AND ANY SERVICES PERFORMED OR PROVIDED BY THE SOFTWARE ARE PROVIDED "AS IS" AND “AS AVAILABLE,” WITH ALL FAULTS AND WITHOUT WARRANTY OF ANY KIND, AND SWARMING TECHNOLOGY HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS WITH RESPECT TO THE SOFTWARE AND ANY SERVICES, EITHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES AND/OR CONDITIONS OF MERCHANTABILITY, OF SATISFACTORY QUALITY, OF FITNESS FOR A PARTICULAR PURPOSE, OF ACCURACY, OF QUIET ENJOYMENT, AND OF NONINFRINGEMENT OF THIRD-PARTY RIGHTS. NO ORAL OR WRITTEN INFORMATION OR ADVICE GIVEN BY SWARMING TECHNOLOGY OR ITS AUTHORIZED REPRESENTATIVE SHALL CREATE A WARRANTY. SHOULD THE SOFTWARE OR SERVICES PROVE DEFECTIVE, YOU ASSUME THE ENTIRE COST OF ALL NECESSARY SERVICING, REPAIR, OR CORRECTION. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES OR LIMITATIONS ON APPLICABLE STATUTORY RIGHTS OF A CONSUMER, SO THE ABOVE EXCLUSION AND LIMITATIONS MAY NOT APPLY TO YOU.
+
+6. INDEMNIFICATION
+You agree to indemnify, defend and hold Swarming Technology, its partners, affiliates, contractors, officers, directors, employees and agents harmless from and against any and all damages, losses and expenses arising directly or indirectly from: (i) your acts and omissions to act in using the Swarming Technology Software pursuant to the terms of the License Agreement; or (ii) your breach of this License Agreement.
+
+7. EXPORT RESTRICTIONS
+You may not use or otherwise export or re-export the Software except as authorized by United States law and the laws of the jurisdiction in which the Software was obtained. In particular, but without limitation, the Licensed Application may not be exported or re-exported (a) into any U.S.-embargoed countries or (b) to anyone on the U.S. Treasury Department's Specially Designated Nationals List or the U.S. Department of Commerce Denied Persons List or Entity List. By using the Software, you represent and warrant that you are not located in any such country or on any such list. You also agree that you will not use these products for any purposes prohibited by United States law, including, without limitation, the development, design, manufacture, or production of nuclear, missile, or chemical or biological weapons.
+
+8. GOVERNING LAW AND JURISDICTION
+Except to the extent expressly provided in the following paragraph, this Agreement and the relationship between you and Swarming Technology shall be governed by the laws of the State of Wisconsin, excluding its conflicts of law provisions. You and Swarming Technology agree to submit to the personal and exclusive jurisdiction of the courts located within the county of Milwaukee, Wisconsin, to resolve any dispute or claim arising from this Agreement. If (a) you are not a U.S. citizen; (b) you do not reside in the U.S.; (c) you are not accessing the Service from the U.S.; and (d) you are a citizen of one of the countries identified below, you hereby agree that any dispute or claim arising from this Agreement shall be governed by the applicable law set forth below, without regard to any conflict of law provisions, and you hereby irrevocably submit to the non-exclusive jurisdiction of the courts located in the state, province or country identified below whose law governs:
+If you are a citizen of any European Union country or Switzerland, Norway or Iceland, the governing law and forum shall be the laws and courts of your usual place of residence.
+Specifically excluded from application to this Agreement is that law known as the United Nations Convention on the International Sale of Goods.

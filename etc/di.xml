@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Swarming\StoreCredit\Api\Data\CreditInterface" type="Swarming\StoreCredit\Model\Credit" />
+    <preference for="Swarming\StoreCredit\Api\Data\TransactionInterface" type="Swarming\StoreCredit\Model\Transaction" />
+    <preference for="Swarming\StoreCredit\Api\Data\LinkInterface" type="Swarming\StoreCredit\Model\Link" />
+    <preference for="Swarming\StoreCredit\Api\Data\TotalDetailsInterface" type="Swarming\StoreCredit\Model\Quote\TotalDetails" />
+    <preference for="Swarming\StoreCredit\Api\Data\QuoteAttributeInterface" type="Swarming\StoreCredit\Model\Quote\Attribute" />
+    <preference for="Swarming\StoreCredit\Api\Data\OrderAttributeInterface" type="Swarming\StoreCredit\Model\Order\Attribute" />
+    <preference for="Swarming\StoreCredit\Api\Data\InvoiceAttributeInterface" type="Swarming\StoreCredit\Model\Order\Invoice\Attribute" />
+    <preference for="Swarming\StoreCredit\Api\Data\CreditmemoAttributeInterface" type="Swarming\StoreCredit\Model\Order\Creditmemo\Attribute" />
+    <preference for="Swarming\StoreCredit\Api\CreditsAccountantInterface" type="Swarming\StoreCredit\Service\CreditsAccountant" />
+    <preference for="Swarming\StoreCredit\Api\CreditsCustomerInterface" type="Swarming\StoreCredit\Service\CreditsCustomer" />
+    <preference for="Swarming\StoreCredit\Api\CreditsRepositoryInterface" type="Swarming\StoreCredit\Service\CreditsRepository" />
+    <preference for="Swarming\StoreCredit\Api\CreditsManagementInterface" type="Swarming\StoreCredit\Service\CreditsManagement" />
+    <preference for="Swarming\StoreCredit\Api\TransactionRepositoryInterface" type="Swarming\StoreCredit\Service\TransactionRepository" />
+    <preference for="Swarming\StoreCredit\Api\TransactionManagerInterface" type="Swarming\StoreCredit\Service\TransactionManager" />
+    <preference for="Swarming\StoreCredit\Api\TransactionCustomerInterface" type="Swarming\StoreCredit\Service\TransactionCustomer" />
+    <preference for="Swarming\StoreCredit\Api\LinkRepositoryInterface" type="Swarming\StoreCredit\Service\LinkRepository" />
+    <preference for="Swarming\StoreCredit\Api\QuoteAttributeRepositoryInterface" type="Swarming\StoreCredit\Service\Quote\AttributeRepository" />
+    <preference for="Swarming\StoreCredit\Api\QuoteAttributeManagementInterface" type="Swarming\StoreCredit\Service\Quote\AttributeManagement" />
+    <preference for="Swarming\StoreCredit\Api\QuoteCreditsInterface" type="Swarming\StoreCredit\Service\QuoteCredits" />
+    <preference for="Swarming\StoreCredit\Api\OrderAttributeRepositoryInterface" type="Swarming\StoreCredit\Service\Order\AttributeRepository" />
+    <preference for="Swarming\StoreCredit\Api\OrderAttributeManagementInterface" type="Swarming\StoreCredit\Service\Order\AttributeManagement" />
+    <preference for="Swarming\StoreCredit\Api\InvoiceAttributeRepositoryInterface" type="Swarming\StoreCredit\Service\Order\Invoice\AttributeRepository" />
+    <preference for="Swarming\StoreCredit\Api\InvoiceAttributeManagementInterface" type="Swarming\StoreCredit\Service\Order\Invoice\AttributeManagement" />
+    <preference for="Swarming\StoreCredit\Api\InvoiceCreditsInterface" type="Swarming\StoreCredit\Service\InvoiceCredits" />
+    <preference for="Swarming\StoreCredit\Api\CreditmemoAttributeRepositoryInterface" type="Swarming\StoreCredit\Service\Order\Creditmemo\AttributeRepository" />
+    <preference for="Swarming\StoreCredit\Api\CreditmemoAttributeManagementInterface" type="Swarming\StoreCredit\Service\Order\Creditmemo\AttributeManagement" />
+
+    <virtualType name="Swarming\StoreCredit\Model\ResourceModel\Credit\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">swarming_credit</argument>
+            <argument name="resourceModel" xsi:type="string">Swarming\StoreCredit\Model\ResourceModel\Credit</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Swarming\StoreCredit\Model\ResourceModel\Transaction\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">swarming_credit_transaction</argument>
+            <argument name="resourceModel" xsi:type="string">Swarming\StoreCredit\Model\ResourceModel\Transaction</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="swarming_credits_listing_data_source" xsi:type="string">Swarming\StoreCredit\Model\ResourceModel\Credit\Grid\Collection</item>
+                <item name="swarming_credits_transactions_listing_data_source" xsi:type="string">Swarming\StoreCredit\Model\ResourceModel\Transaction\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Swarming\StoreCredit\Model\Config\Source\TransactionTypes">
+        <arguments>
+            <argument name="types" xsi:type="array">
+                <item name="add" xsi:type="string" translatable="true">Add</item>
+                <item name="subtract" xsi:type="string" translatable="true">Subtract</item>
+                <item name="hold" xsi:type="string" translatable="true">On Hold</item>
+                <item name="cancel" xsi:type="string" translatable="true">Cancel</item>
+                <item name="spend" xsi:type="string" translatable="true">Spend</item>
+                <item name="refund" xsi:type="string" translatable="true">Refund</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Swarming\StoreCredit\Helper\Transaction">
+        <arguments>
+            <argument name="gainTypes" xsi:type="array">
+                <item name="add" xsi:type="const">Swarming\StoreCredit\Api\Data\TransactionInterface::TYPE_ADD</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Api\AccountManagementInterface">
+        <plugin name="swarming_credits_init" type="Swarming\StoreCredit\Plugin\Customer\Account" sortOrder="60" />
+    </type>
+    <type name="Magento\Quote\Model\Cart\CartTotalRepository">
+        <plugin name="swarming_credits_details" type="Swarming\StoreCredit\Plugin\Quote\TotalDetails"/>
+    </type>
+    <type name="Swarming\StoreCredit\Model\Transaction\ActionFactory">
+        <arguments>
+            <argument name="typeMap" xsi:type="array">
+                <item name="add" xsi:type="array">
+                    <item name="type" xsi:type="const">Swarming\StoreCredit\Api\Data\TransactionInterface::TYPE_ADD</item>
+                    <item name="class" xsi:type="string">Swarming\StoreCredit\Model\Transaction\Action\Add</item>
+                </item>
+                <item name="subtract" xsi:type="array">
+                    <item name="type" xsi:type="const">Swarming\StoreCredit\Api\Data\TransactionInterface::TYPE_SUBTRACT</item>
+                    <item name="class" xsi:type="string">Swarming\StoreCredit\Model\Transaction\Action\Subtract</item>
+                </item>
+                <item name="hold" xsi:type="array">
+                    <item name="type" xsi:type="const">Swarming\StoreCredit\Api\Data\TransactionInterface::TYPE_HOLD</item>
+                    <item name="class" xsi:type="string">Swarming\StoreCredit\Model\Transaction\Action\Hold</item>
+                </item>
+                <item name="cancel" xsi:type="array">
+                    <item name="type" xsi:type="const">Swarming\StoreCredit\Api\Data\TransactionInterface::TYPE_CANCEL</item>
+                    <item name="class" xsi:type="string">Swarming\StoreCredit\Model\Transaction\Action\Cancel</item>
+                </item>
+                <item name="spend" xsi:type="array">
+                    <item name="type" xsi:type="const">Swarming\StoreCredit\Api\Data\TransactionInterface::TYPE_SPEND</item>
+                    <item name="class" xsi:type="string">Swarming\StoreCredit\Model\Transaction\Action\Spend</item>
+                </item>
+                <item name="refund" xsi:type="array">
+                    <item name="type" xsi:type="const">Swarming\StoreCredit\Api\Data\TransactionInterface::TYPE_REFUND</item>
+                    <item name="class" xsi:type="string">Swarming\StoreCredit\Model\Transaction\Action\Refund</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Swarming\StoreCredit\Model\Transaction\InfoRegistry">
+        <arguments>
+            <argument name="typeMap" xsi:type="array">
+                <item name="add" xsi:type="string">Swarming\StoreCredit\Model\Transaction\Info\Add</item>
+                <item name="hold" xsi:type="string">Swarming\StoreCredit\Model\Transaction\Info\Hold</item>
+                <item name="spend" xsi:type="string">Swarming\StoreCredit\Model\Transaction\Info\Spend</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Swarming\StoreCredit\Helper\TransactionSummary">
+        <arguments>
+            <argument name="templates" xsi:type="array">
+                <item name="order" xsi:type="array">
+                    <item name="path" xsi:type="string">sales/order/view</item>
+                    <item name="key" xsi:type="string">order_id</item>
+                </item>
+                <item name="invoice" xsi:type="array">
+                    <item name="path" xsi:type="string">sales/order/invoice</item>
+                    <item name="key" xsi:type="string">order_id</item>
+                </item>
+                <item name="creditmemo" xsi:type="array">
+                    <item name="path" xsi:type="string">sales/order/creditmemo</item>
+                    <item name="key" xsi:type="string">order_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Swarming\StoreCredit\Helper\TransactionSummaryNotifier" type="Swarming\StoreCredit\Helper\TransactionSummary">
+        <arguments>
+            <argument name="urlBuilder" xsi:type="object">Magento\Framework\Url</argument>
+            <argument name="templates" xsi:type="array">
+                <item name="order" xsi:type="array">
+                    <item name="path" xsi:type="string">sales/order/view</item>
+                    <item name="key" xsi:type="string">order_id</item>
+                </item>
+                <item name="invoice" xsi:type="array">
+                    <item name="path" xsi:type="string">sales/order/invoice</item>
+                    <item name="key" xsi:type="string">order_id</item>
+                </item>
+                <item name="creditmemo" xsi:type="array">
+                    <item name="path" xsi:type="string">sales/order/creditmemo</item>
+                    <item name="key" xsi:type="string">order_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Swarming\StoreCredit\Model\Transaction\Notifier\Template">
+        <arguments>
+            <argument name="transactionSummery" xsi:type="object">Swarming\StoreCredit\Helper\TransactionSummaryNotifier</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="swarming_credits" type="Swarming\StoreCredit\Plugin\Quote\CartRepository"/>
+    </type>
+
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="swarming_credits" type="Swarming\StoreCredit\Plugin\Sales\OrderRepository"/>
+    </type>
+
+    <type name="Magento\Sales\Api\InvoiceRepositoryInterface">
+        <plugin name="swarming_credits" type="Swarming\StoreCredit\Plugin\Sales\Order\InvoiceRepository"/>
+    </type>
+
+    <type name="Magento\Sales\Api\CreditmemoRepositoryInterface">
+        <plugin name="swarming_credits" type="Swarming\StoreCredit\Plugin\Sales\Order\CreditmemoRepository"/>
+    </type>
+
+    <type name="Magento\ImportExport\Controller\Adminhtml\Import\Download">
+        <plugin name="swarming_credits" type="Swarming\StoreCredit\Plugin\Import\Controller\Download"/>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="swarming-credits-repair" xsi:type="object">Swarming\StoreCredit\Console\Command\RepairCommand</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,73 @@
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+
+//
+//  Variables
+//  _____________________________________________
+
+@swarming-credits__icon__max-height: 16px;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+	.swarming-credits {
+		&-balance,
+		&-actions {
+			margin-left: @indent__xs;
+			margin-right: @indent__xs;
+
+			& > label {
+				float: left;
+				margin-right: 1em;
+			}
+		}
+
+		&-balance {
+			text-align: right;
+		}
+
+		&-icon {
+			.lib-css(max-height, @swarming-credits__icon__max-height);
+			margin-right: @indent__xs;
+			vertical-align: middle;
+		}
+
+		&-actions {
+			padding-bottom: @indent__s;
+			margin-top: @indent__xs;
+
+			> label {
+				padding-top: 0.5em;
+			}
+
+			.control {
+				width: 50%;
+				max-width: 8em;
+				margin-left: auto;
+
+				text-align: right;
+
+				input {
+					margin-bottom: 0.25em;
+				}
+			}
+
+			.actions-toolbar {
+				margin-top: 0.5em;
+			}
+		}
+
+		&-amount-max-wrapper {
+			text-align: right;
+		}
+
+		&-transaction-toolbar {
+			position: relative;
+		}
+	}
+
+}

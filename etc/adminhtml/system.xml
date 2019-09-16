@@ -1,0 +1,319 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="swarming" translate="label" sortOrder="500">
+            <label>Swarming</label>
+        </tab>
+        <section id="swarming_credits" translate="label" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Store Credit</label>
+            <tab>swarming</tab>
+            <resource>Swarming_StoreCredit::config_credits</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="exchange_rate" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Exchange Rate</label>
+                    <comment><![CDATA[Unit of Currency per Amount of Store Credit. Example: 1/10 = $1 for 10 Store Credit.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="allow_fractional" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Allow Fractional Amount</label>
+                    <comment>If disabled, Store Credit will round up to the next whole number.</comment>
+                    <frontend_model>Swarming\StoreCredit\Block\Adminhtml\System\Config\Website\Form\Field</frontend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="max" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Maximum Store Credit per account</label>
+                    <validate>validate-digits validate-zero-or-greater</validate>
+                    <comment><![CDATA[Leave 0 for unlimited]]></comment>
+                    <frontend_model>Swarming\StoreCredit\Block\Adminhtml\System\Config\Website\Form\Field</frontend_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="display" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Display</label>
+
+                <field id="block_title" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Customer Checkout Display Name</label>
+                    <comment>Displayed on shopping cart and checkout pages.</comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="name" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Store Credit Frontend Name</label>
+                    <comment>The name used for your Store Credit type (Points, Credits, etc)</comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="icon" translate="label comment" type="image" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Credit Icon</label>
+                    <comment>Allowed file types: PNG, GIF, JPG, JPEG.</comment>
+                    <backend_model>Swarming\StoreCredit\Model\Config\Backend\Image\Icon</backend_model>
+                    <base_url type="media">swarming/credits/icon</base_url>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="symbol" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Credit Abbreviation</label>
+                    <comment>(PT, CR, etc)</comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="base_format" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Credit Label Format</label>
+                    <comment><![CDATA[Use {{icon}} {{name}} {{symbol}} {{credits}} and {{currency_amount}}.]]></comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="grid_format" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Grid Label Format</label>
+                    <comment><![CDATA[Use {{name}} {{symbol}} {{credits}} and {{currency_amount}}.]]></comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="total_format" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Store Credit Total Label Format</label>
+                    <comment><![CDATA[Use {{icon}} {{name}} {{symbol}} {{credits}} and {{currency_amount}}.]]></comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="refund" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Refund</label>
+
+                <field id="refund_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Allow Refund</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="refund_currency_enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Refund Store Credit as Currency</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="refund_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="expiration" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Expiration</label>
+
+                <field id="life_time" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Expiration Time In Days</label>
+                    <validate>validate-digits validate-zero-or-greater</validate>
+                    <comment><![CDATA[Leave 0 for unlimited.]]></comment>
+                    <frontend_model>Swarming\StoreCredit\Block\Adminhtml\System\Config\Website\Form\Field</frontend_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="expiration_reminder_days" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Send Reminder Email (X) Days Before Expiration</label>
+                    <validate>validate-digits validate-zero-or-greater</validate>
+                    <comment><![CDATA[Leave 0 for disabling.]]></comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="life_time" separator="," negative="1">0,</field>
+                    </depends>
+                </field>
+
+                <field id="expiration_repeats" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Expiration Email Repeats</label>
+                    <source_model>Swarming\StoreCredit\Model\Config\Source\ExpirationRepeats</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="life_time" separator="," negative="1">0,</field>
+                        <field id="expiration_reminder_days" separator="," negative="1">0,</field>
+                    </depends>
+                </field>
+
+                <field id="expiration_template" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Expiration Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="life_time" separator="," negative="1">0,</field>
+                        <field id="expiration_reminder_days" separator="," negative="1">0,</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="spending" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Spending</label>
+
+                <field id="error_message" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Error Message for Customer</label>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="enable_limit" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enable Limit Per Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="limit_type" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Limit Type</label>
+                    <source_model>Swarming\StoreCredit\Model\Config\Source\SpendingLimit</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="enable_limit">1</field>
+                    </depends>
+                </field>
+
+                <field id="spend_percent" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Spend Limit (in %)</label>
+                    <validate>validate-digits validate-digits-range digits-range-1-100</validate>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="enable_limit">1</field>
+                        <field id="limit_type">percent</field>
+                    </depends>
+                </field>
+
+                <field id="spend_fixed" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Maximum Store Credit per order</label>
+                    <validate>validate-digits validate-zero-or-greater</validate>
+                    <comment><![CDATA[Set amount in base currency. Leave 0 for unlimited]]></comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="enable_limit">1</field>
+                        <field id="limit_type">fixed</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="notification" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Notifications</label>
+
+                <field id="email_sender" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Send Email From</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="balance_update_notify" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enable Balance Notifications</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+
+                <field id="transactions_notify" translate="label comment" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Notify on Action Type</label>
+                    <source_model>Swarming\StoreCredit\Model\Config\Source\TransactionTypes</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="balance_update_notify">1</field>
+                    </depends>
+                </field>
+
+                <field id="transactions_add_template" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Template For "Add" Action</label>
+                    <comment><![CDATA[Template used when adding Store Credit to customer's account.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="balance_update_notify">1</field>
+                    </depends>
+                </field>
+
+                <field id="transactions_subtract_template" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Template For "Subtract" Action</label>
+                    <comment>Template used when subtracting Store Credit from a customer's account.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="balance_update_notify">1</field>
+                    </depends>
+                </field>
+
+                <field id="transactions_hold_template" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Template For "On Hold" Action</label>
+                    <comment>Template used when holding Store Credit from a customer.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="balance_update_notify">1</field>
+                    </depends>
+                </field>
+
+                <field id="transactions_cancel_template" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Template For "Cancel" Action</label>
+                    <comment>Template used when cancelling a customer's transaction.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="balance_update_notify">1</field>
+                    </depends>
+                </field>
+
+                <field id="transactions_spend_template" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Template For "Spend" Action</label>
+                    <comment>Template used when a customer spends Store Credit.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="balance_update_notify">1</field>
+                    </depends>
+                </field>
+
+                <field id="transactions_refund_template" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Template For "Refund" Action</label>
+                    <comment>Template used when refunding spent Store Credit.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="balance_update_notify">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

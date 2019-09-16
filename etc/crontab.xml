@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="swarming_credits_balance_update" instance="Swarming\StoreCredit\Cron\Credits\BalanceUpdate" method="execute">
+            <schedule>0 0 * * *</schedule>
+        </job>
+        <job name="swarming_credits_expiration_notification" instance="Swarming\StoreCredit\Cron\Credits\Notification\Expiration" method="execute">
+            <schedule>10 0 * * *</schedule>
+        </job>
+    </group>
+</config>

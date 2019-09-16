@@ -1,0 +1,7 @@
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+
+#swarming_credits_action_base_fieldset .admin__field-control {
+    width: 70%;
+}
