@@ -15,6 +15,13 @@
         </data>
     </route>
 
+    <route url="/V1/swarming/credits/apply/:cartId" method="POST">
+        <service class="Swarming\StoreCredit\Api\CreditsManagementInterface" method="applyCredits"/>
+        <resources>
+            <resource ref="Swarming_StoreCredit::api" />
+        </resources>
+    </route>
+
     <route url="/V1/swarming/credits/add-transaction/:customerId" method="POST">
         <service class="Swarming\StoreCredit\Api\TransactionCustomerInterface" method="addTransaction"/>
         <resources>
