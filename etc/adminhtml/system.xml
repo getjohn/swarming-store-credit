@@ -224,6 +224,15 @@
                         <field id="limit_type">fixed</field>
                     </depends>
                 </field>
+                <field id="spend_percent_groups" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Spend Limit % For Groups</label>
+                    <comment><![CDATA[Each line may contain customer group ID, % limit, and the replaced "Store Credit Frontend Name", all comma separated]]></comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                        <field id="enable_limit">1</field>
+                        <field id="limit_type">percent</field>
+                    </depends>
+                </field>
             </group>
 
             <group id="notification" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">

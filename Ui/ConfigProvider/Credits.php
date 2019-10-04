@@ -96,7 +96,7 @@ class Credits implements \Magento\Checkout\Model\ConfigProviderInterface
     {
         return [
             'block_title' => $this->configDisplay->getBlockTitle(),
-            'name' => $this->configDisplay->getName(),
+            'name' => $this->configDisplay->getName(null, $this->customerSession->getCustomer() ? $this->customerSession->getCustomer()->getGroupId() : null),
             'symbol' => $this->configDisplay->getSymbol(),
             'icon' => $this->configDisplay->getIconHtml(),
             'precision' => $this->configGeneral->isAllowedFractional() ? CreditsCurrency::PRECISION : 0,

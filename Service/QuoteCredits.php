@@ -46,7 +46,7 @@ class QuoteCredits implements \Swarming\StoreCredit\Api\QuoteCreditsInterface
     public function getMaxAllowed($cart, $originGrandTotal = null)
     {
         $amountOff = $originGrandTotal === null ? $this->getAmountOff($cart) : $originGrandTotal;
-        return $this->calculateMaxAllowed($amountOff, $cart->getStoreId());
+        return $this->calculateMaxAllowed($amountOff, $cart->getStoreId(), $cart);
     }
 
     /**
@@ -64,10 +64,10 @@ class QuoteCredits implements \Swarming\StoreCredit\Api\QuoteCreditsInterface
      * @param int $storeId
      * @return float
      */
-    private function calculateMaxAllowed($amountOff, $storeId)
+    private function calculateMaxAllowed($amountOff, $storeId, $cart = null)
     {
         $maxAllowedBasAmount = $this->configSpending->isEnabledLimit($storeId)
-            ? $this->calculateLimitation($amountOff, $storeId)
+            ? $this->calculateLimitation($amountOff, $storeId, $cart)
             : $amountOff;
 
         $maxAllowedBasAmount = $this->creditsCurrency->convertBaseToCredits($maxAllowedBasAmount, $storeId);
@@ -79,15 +79,15 @@ class QuoteCredits implements \Swarming\StoreCredit\Api\QuoteCreditsInterface
      * @param int $storeId
      * @return float
      */
-    private function calculateLimitation($amountOff, $storeId)
+    private function calculateLimitation($amountOff, $storeId, $cart = null)
     {
         $limitType = $this->configSpending->getLimitType($storeId);
         switch ($limitType) {
             case SpendingLimit::PERCENT:
-                $maxAllowedBasAmount = $this->getPercentageMax($amountOff, $storeId);
+                $maxAllowedBasAmount = $this->getPercentageMax($amountOff, $storeId, $cart);
                 break;
             case SpendingLimit::FIXED:
-                $maxAllowedBasAmount = $this->getFixedMax($amountOff, $storeId);
+                $maxAllowedBasAmount = $this->getFixedMax($amountOff, $storeId, $cart);
                 break;
             default:
                 throw new \DomainException("'{$limitType}' - wrong limit type.");
@@ -102,9 +102,14 @@ class QuoteCredits implements \Swarming\StoreCredit\Api\QuoteCreditsInterface
      * @param int $storeId
      * @return float
      */
-    private function getPercentageMax($amountOff, $storeId)
+    private function getPercentageMax($amountOff, $storeId, $cart)
     {
-        $spendMaxPercentage = $this->configSpending->getPercentageLimit($storeId);
+        $customerGroupId = 0;
+        if($cart && $cart->getCustomer()) {
+            $customerGroupId = $cart->getCustomer()->getGroupId();
+        }
+\Magento\Framework\App\ObjectManager::getInstance()->get(\Psr\Log\LoggerInterface::class)->info('using customer group '.$customerGroupId.' for '.$cart->getCustomer()->getId());
+        $spendMaxPercentage = $this->configSpending->getPercentageLimit($storeId, $customerGroupId);
         return $spendMaxPercentage ? $amountOff * $spendMaxPercentage/100 : $amountOff;
     }
 

@@ -37,6 +37,7 @@
                 <limit_type>fixed</limit_type>
                 <spend_percent>100</spend_percent>
                 <spend_fixed>0</spend_fixed>
+                <spend_percent_groups></spend_percent_groups>
             </spending>
             <notification>
                 <email_sender>general</email_sender>
