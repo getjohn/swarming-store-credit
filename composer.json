@@ -24,7 +24,7 @@
     "magento/module-checkout": "^100.2.0",
     "magento/framework": "^101.0.0|^102.0.0",
     "magento/zendframework1": "^1.13.0",
-    "zendframework/zend-stdlib": "^2.7.7",
+    "zendframework/zend-stdlib": "^2.7.7|^3.0.0",
     "monolog/monolog": "^1.17.0",
     "vaimo/composer-patches": "^3.24.1|^4.0.0"
   },
