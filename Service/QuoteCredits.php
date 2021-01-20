@@ -108,7 +108,6 @@ class QuoteCredits implements \Swarming\StoreCredit\Api\QuoteCreditsInterface
         if($cart && $cart->getCustomer()) {
             $customerGroupId = $cart->getCustomer()->getGroupId();
         }
-\Magento\Framework\App\ObjectManager::getInstance()->get(\Psr\Log\LoggerInterface::class)->info('using customer group '.$customerGroupId.' for '.$cart->getCustomer()->getId());
         $spendMaxPercentage = $this->configSpending->getPercentageLimit($storeId, $customerGroupId);
         return $spendMaxPercentage ? $amountOff * $spendMaxPercentage/100 : $amountOff;
     }
