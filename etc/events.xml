@@ -14,7 +14,7 @@
     <event name="sales_convert_quote_to_order">
         <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Quote\ConvertToOrder" />
     </event>
-    <event name="sales_order_save_after">
+    <event name="sales_order_place_after">
         <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Order\PlaceAfter" />
     </event>
     <event name="order_cancel_after">
