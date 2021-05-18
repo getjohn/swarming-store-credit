@@ -18,6 +18,9 @@ composer require getjohn/swarming-store-credit
 php bin/magento setup:upgrade
 ```
 
+## Documentation
+[User Guide](https://github.com/getjohn/swarming-store-credit/wiki/Store-Credit-Extension-User-Guide)
+
 ## Contributing
 Pull requests are welcome, we'll review them when we can. We'll look at bug reports without patches when we can, but we've a limited amount of time to spend on the module, so patches are much appreciated. We're mostly just maintaining this and ensuring it stays working with the latest Magento versions, so it's unlikely we'll implement new feature requests without patches or an internal requirement.
 
@@ -25,7 +28,7 @@ We're happy to offer our commercial development services if you need additional 
 
 ## Credits
 [Swarming Technology](https://swarmingtech.com/) have kindly granted us permission to open source and re-license this module under the GPL with our patches, as it was no longer being maintained in-house by themselves.
-Maintained by [Get John](https://www.getjohn.co.uk/).
+Maintained by [Get John](https://getjohn.co.uk/).
 
 ## Notes
 There's still quite a few copyright notices in here, we've not gone through in detail to check for commercial software notices which were in the original release. If anyone wants to clean it up, feel free. We also welcome patches for this README file!
