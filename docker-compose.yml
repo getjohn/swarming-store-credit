@@ -1,0 +1,88 @@
+#
+# Get John Magento Test docker-compose file for use in a dev environment
+#
+# Use: 
+#
+# docker-compose run magento daemon
+# docker-compose run magento shell
+# docker-compose run magento <arbitrary entrypoint>
+#
+# Then in another terminal, same directory, you can run `docker-compose logs -f` to tail the logs
+#
+volumes:
+  mage_root:
+  mage_var:
+  mage_generated:
+  mage_static:
+  mage_vendor:
+  composer_cache:
+
+services:
+  mysql:
+    image: mariadb:10.4
+    environment:
+      ALLOW_EMPTY_PASSWORD: '1'
+      MYSQL_USER: 'dbuser'
+      MYSQL_PASSWORD: 'dbpass'
+      MYSQL_DATABASE: 'dbname'
+      MYSQL_ROOT_PASSWORD: 'dbpass'
+    ports:
+      - '3306:3306'
+  elastic:
+    image: getjohn/elasticsearch-docker:7.11.2
+    environment:
+      ES_JAVA_OPTS: "-Xms768m -Xmx768m"
+  rabbitmq:
+    image: rabbitmq:latest
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+  magento:
+    image: getjohn/generic-test-magento2:latest
+    ports:
+      - '80:80'
+    depends_on:
+      - 'mysql'
+      - 'elastic'
+      - 'rabbitmq'
+      - 'mailhog'
+    environment:
+      MYSQL_HOST: 'mysql'
+      MYSQL_DATABASE: 'dbname'
+      MYSQL_USER: 'dbuser'
+      MYSQL_PASSWORD: 'dbpass'
+      GJ_WEBSITE_CODE: 'base'
+      GJ_ELASTIC_HOST: 'elastic'
+      COMPOSER_AUTH: $COMPOSER_AUTH
+      GI_API_KEY: $GI_API_KEY
+      GI_SUITE_FILE: $GI_SUITE_FILE
+      GI_SUITE_ID: $GI_SUITE_ID
+      GI_TEST_START_PATH: $GI_TEST_START_PATH
+      GJ_DB_EXPORT: $GJ_DB_EXPORT
+      GJ_DB_IMPORT: $GJ_DB_IMPORT
+      GJ_DB_RESET: $GJ_DB_RESET
+      GJ_DB_STRIP: $GJ_DB_STRIP
+      GJ_SERVICES_WAIT: $GJ_SERVICES_WAIT
+      GJ_WEBSITE_URL: $GJ_WEBSITE_URL
+      NGROK_STARTUP_DELAY: $NGROK_STARTUP_DELAY
+      NGROK_TOKEN: $NGROK_TOKEN
+      GJ_SKIP_COMPILE: $GJ_SKIP_COMPILE
+      GJ_SKIP_UPGRADE: $GJ_SKIP_UPGRADE
+      GJ_SKIP_COMPOSER: $GJ_SKIP_COMPOSER
+      GIT_CLONE_DIR: /opt/getjohn/module
+      PRE_INIT_SCRIPT: .docker/pre-init.sh
+      POST_INIT_SCRIPT: $POST_INIT_SCRIPT
+    volumes:
+      - 'mage_root:/opt/getjohn/container/magento'
+      - 'mage_static:/opt/getjohn/container/magento/pub/static'
+      - 'mage_generated:/opt/getjohn/container/magento/generated'
+      - 'mage_var:/opt/getjohn/container/magento/var'
+      - './vendor:/opt/getjohn/container/magento/vendor'
+      - 'composer_cache:/root/.cache/composer'
+      - './.docker/sql:/tmp/sql'
+      - './.docker/etc/config.php:/opt/getjohn/container/magento/app/etc/config.php'
+      - ".:/opt/getjohn/module"
+      - "/opt/getjohn/module/vendor"
+
