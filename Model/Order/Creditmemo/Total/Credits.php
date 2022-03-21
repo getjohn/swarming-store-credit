@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Swarming Technology, LLC. All rights reserved.
+ * Copyright © Swarming Technology, LLC. Covered by the 3-clause BSD license.
  */
 namespace Swarming\StoreCredit\Model\Order\Creditmemo\Total;
 
