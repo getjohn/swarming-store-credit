@@ -38,4 +38,7 @@
     <event name="swarming_credits_transaction_add_after">
         <observer name="swarming_credits" instance="Swarming\StoreCredit\Observer\Credits\Notification\TransactionAction"/>
     </event>
+    <event name="checkout_submit_all_after">
+        <observer name="swarming_storecredit_observer_checkout_submit_all_after" instance="Swarming\StoreCredit\Observer\Checkout\SubmitAllAfter"/>
+    </event>
 </config>
