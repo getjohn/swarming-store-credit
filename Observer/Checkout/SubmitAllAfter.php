@@ -15,7 +15,8 @@ use Magento\Store\Model\ScopeInterface;
 
 class SubmitAllAfter implements ObserverInterface
 {
-    const PATH_NOTIFICATION_URL = 'getjohn_punchouthub/checkout/swarming_credits_ack_url';
+    const PATH_SWARMING_CREDITS_GENERAL_ACTIVE = 'swarming_credits/general/active';
+    const PATH_SWARMING_CREDITS_GENERAL_RESET_CREDIT = 'swarming_credits/general/reset_credit';
 
     /**
      * @var ScopeConfigInterface
@@ -60,8 +61,9 @@ class SubmitAllAfter implements ObserverInterface
         /** @var \Magento\Sales\Model\Order $order */
         $order = $observer->getEvent()->getOrder();
 
-        $ackURL = $this->_scopeConfig->getValue(self::PATH_NOTIFICATION_URL, ScopeInterface::SCOPE_STORE);
-        if(!$ackURL) {
+        $isSwarmingCreditsActive = $this->_scopeConfig->getValue(self::PATH_SWARMING_CREDITS_GENERAL_ACTIVE, ScopeInterface::SCOPE_STORE);
+        $resetCredit = $this->_scopeConfig->getValue(self::PATH_SWARMING_CREDITS_GENERAL_RESET_CREDIT, ScopeInterface::SCOPE_STORE);
+        if(!$isSwarmingCreditsActive || !$resetCredit) {
             return;
         }
 

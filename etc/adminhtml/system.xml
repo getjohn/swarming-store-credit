@@ -48,6 +48,15 @@
                         <field id="active">1</field>
                     </depends>
                 </field>
+
+                <field id="reset_credit" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Reset Credit After Order Complete</label>
+                    <comment>If enabled, the customer's Store Credit will be set to zero after the order is completed.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
             </group>
 
             <group id="display" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
