@@ -91,8 +91,7 @@ class Validator
             return $errors;
         }
 
-        $validFilter = new \Zend_Validate_Float();
-        if (!$validFilter->isValid($transactionData[TransactionInterface::AMOUNT])) {
+        if ((string)$transactionData[TransactionInterface::AMOUNT] === (string)(floatval($transactionData[TransactionInterface::AMOUNT]))) {
             $errors[] = __('Amount must be a number.');
             return $errors;
         }

@@ -61,7 +61,7 @@ class Display
     {
         $name = (string)$this->scopeConfig->getValue('swarming_credits/display/name', ScopeInterface::SCOPE_STORE, $storeId);
         if($customerGroupId !== null) {
-            $customerGroups = explode("\n", $this->scopeConfig->getValue('swarming_credits/spending/spend_percent_groups', ScopeInterface::SCOPE_STORE, $storeId));
+            $customerGroups = explode("\n", $this->scopeConfig->getValue('swarming_credits/spending/spend_percent_groups', ScopeInterface::SCOPE_STORE, $storeId) ?? '');
             foreach($customerGroups as $customerGroupOverride) {
                 $data = explode(',', $customerGroupOverride);
                 if(trim($data[0]) === (string)$customerGroupId) {
