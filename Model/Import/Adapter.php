@@ -52,6 +52,8 @@ class Adapter extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
      */
     private $dataProcessor;
 
+    protected $logger;
+
     /**
      * @param \Magento\Framework\Json\Helper\Data $jsonHelper
      * @param \Magento\ImportExport\Helper\Data $importExportData
@@ -72,7 +74,8 @@ class Adapter extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
         \Magento\Framework\Stdlib\StringUtils $string,
         \Magento\ImportExport\Model\Import\ErrorProcessing\ProcessingErrorAggregatorInterface $errorAggregator,
         \Swarming\StoreCredit\Api\CreditsCustomerInterface $creditsCustomer,
-        \Swarming\StoreCredit\Model\Import\DataProcessor $dataProcessor
+        \Swarming\StoreCredit\Model\Import\DataProcessor $dataProcessor,
+        \Psr\Log\LoggerInterface $logger
     ) {
         $this->jsonHelper = $jsonHelper;
         $this->_importExportData = $importExportData;
@@ -83,7 +86,7 @@ class Adapter extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
         $this->_connection = $resource->getConnection();
         $this->creditsCustomer = $creditsCustomer;
         $this->dataProcessor = $dataProcessor;
-
+        $this->logger = $logger;
         $this->initErrorMessageTemplates();
     }
 
@@ -113,7 +116,7 @@ class Adapter extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
         );
         $this->getErrorAggregator()->addErrorMessageTemplate(
             self::ERROR_CREDIT_BALANCE_NOT_ENOUGH,
-            'Amount is grater than balance of the customer.'
+            'Amount is greater than balance of the customer.'
         );
         $this->getErrorAggregator()->addErrorMessageTemplate(self::ERROR_AMOUNT_IS_EMPTY, 'Please specify an amount.');
         $this->getErrorAggregator()->addErrorMessageTemplate(self::ERROR_INVALID_AMOUNT, 'Amount should be positive number greater 0.');
@@ -143,7 +146,6 @@ class Adapter extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
         if (isset($this->_validatedRows[$rowNumber])) {
             return !$this->getErrorAggregator()->isRowInvalid($rowNumber);
         }
-
         $this->_validatedRows[$rowNumber] = true;
         $this->_processedEntitiesCount++;
 
@@ -191,7 +193,13 @@ class Adapter extends \Magento\ImportExport\Model\Import\Entity\AbstractEntity
                 TransactionInterface::SUMMARY => $rowData[self::COLUMN_SUMMARY],
                 TransactionInterface::SUPPRESS_NOTIFICATION => $rowData[self::COLUMN_SUPPRESS_NOTIFICATION]
             ];
-            $this->creditsCustomer->update($rowData[TransactionInterface::CUSTOMER_ID], $adjustmentData);
+            try {
+                $this->creditsCustomer->update($rowData[TransactionInterface::CUSTOMER_ID], $adjustmentData);
+            }
+            catch(\Exception $e) {
+                $this->logger->error('failed to update credit: '.$e->getMessage());
+                throw $e;
+            }
         }
     }
 }

@@ -8,9 +8,18 @@ use Swarming\StoreCredit\Model\Import\Adapter as ImportAdapter;
 use Magento\ImportExport\Model\Import\ErrorProcessing\ProcessingError;
 use Magento\ImportExport\Model\Import\AbstractEntity as ImportAbstractEntity;
 use Swarming\StoreCredit\Api\Data\TransactionInterface;
+use Magento\Customer\Api\AccountManagementInterface;
+use Magento\Customer\Api\Data\CustomerInterfaceFactory;
+use Magento\Store\Model\ScopeInterface;
 
 class DataProcessor
 {
+    const PATH_SWARMING_CREDITS_IMPORT_UNIQUE_ATTR = 'swarming_credits/import/unique_attribute';
+    const PATH_SWARMING_CREDITS_IMPORT_UNIQUE_LABEL = 'swarming_credits/import/unique_label';
+    const PATH_SWARMING_CREDITS_IMPORT_CREATE = 'swarming_credits/import/create_customer';
+    const PATH_SWARMING_CREDITS_IMPORT_SUPPRESS = 'swarming_credits/import/always_suppress';
+    const FAKE_EMAIL_SUFFIX = '@invalid.email.example.com';
+
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */
@@ -44,6 +53,30 @@ class DataProcessor
      */
     private $websiteCodeToId = [];
 
+    protected $scopeConfig;
+    protected $customerRepository;
+    protected $searchCriteria;
+    protected $logger;
+
+    protected $customerUniqueAttrToId = []; // [unique_attr] = ID
+
+    // properties of the current import
+    protected $currentWebsiteCode = null; // website code
+    protected $currentUniqueAttr = null;
+    protected $currentUniqueLabel = null;
+    protected $currentCreateCustomer = null;
+    protected $alwaysSuppress = null;
+
+    /**
+     * @var AccountManagementInterface
+     */
+    protected $customerAccountManagement;
+
+    /**
+     * @var CustomerInterfaceFactory
+     */
+    protected $customerIFactory;
+
     /**
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\CustomerImportExport\Model\ResourceModel\Import\Customer\StorageFactory $customerStorageFactory
@@ -56,9 +89,20 @@ class DataProcessor
         \Magento\CustomerImportExport\Model\ResourceModel\Import\Customer\StorageFactory $customerStorageFactory,
         \Swarming\StoreCredit\Model\Import\Credit\StorageFactory $creditStorageFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
+        \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteria,
+        AccountManagementInterface $customerAccountManagement,
+        CustomerInterfaceFactory $customerIFactory,
+        \Psr\Log\LoggerInterface $logger,
         array $supportedActions = []
     ) {
         $this->storeManager = $storeManager;
+        $this->scopeConfig = $scopeConfig;
+        $this->searchCriteria = $searchCriteria;
+        $this->customerRepository = $customerRepository;
+        $this->customerAccountManagement = $customerAccountManagement;
+        $this->customerIFactory = $customerIFactory;
+        $this->logger = $logger;
 
         $pageSize = (int)$scopeConfig->getValue(ImportAbstractEntity::XML_PATH_PAGE_SIZE) ?: 0;
         $this->customerStorage = $customerStorageFactory->create(['data' => ['page_size' => $pageSize]]);
@@ -84,10 +128,14 @@ class DataProcessor
      */
     public function prepareRow(array $rowData)
     {
-        $rowData[TransactionInterface::CUSTOMER_ID] = $this->getCustomerId(
-            $rowData[ImportAdapter::COLUMN_EMAIL],
-            $rowData[ImportAdapter::COLUMN_WEBSITE]
-        );
+        if($this->currentUniqueAttr && !empty($rowData[$this->currentUniqueLabel]) && !empty($this->customerUniqueAttrToId[$rowData[$this->currentUniqueLabel]])) {
+            $rowData[TransactionInterface::CUSTOMER_ID] = $this->customerUniqueAttrToId[$rowData[$this->currentUniqueLabel]];
+        } else {
+            $rowData[TransactionInterface::CUSTOMER_ID] = $this->getCustomerId(
+                $rowData[ImportAdapter::COLUMN_EMAIL],
+                $rowData[ImportAdapter::COLUMN_WEBSITE]
+            );
+        }
 
         $rowData[TransactionInterface::SUMMARY] = !empty($rowData[ImportAdapter::COLUMN_SUMMARY])
             ? $rowData[ImportAdapter::COLUMN_SUMMARY]
@@ -95,7 +143,7 @@ class DataProcessor
 
         $rowData[TransactionInterface::SUPPRESS_NOTIFICATION] = !empty($rowData[ImportAdapter::COLUMN_SUPPRESS_NOTIFICATION])
             ? (bool)$rowData[ImportAdapter::COLUMN_SUPPRESS_NOTIFICATION]
-            : false;
+            : (bool)$this->alwaysSuppress;
 
         return $rowData;
     }
@@ -110,8 +158,49 @@ class DataProcessor
     {
         $this->errorAggregator = $errorAggregator;
 
+        if (!empty($rowData[ImportAdapter::COLUMN_WEBSITE])) {
+            if($this->currentWebsiteCode && $this->currentWebsiteCode != $rowData[ImportAdapter::COLUMN_WEBSITE]) {
+                $this->addRowError(ImportAdapter::ERROR_INVALID_WEBSITE, $rowNumber, ImportAdapter::COLUMN_WEBSITE);
+                return !$errorAggregator->isRowInvalid($rowNumber);
+            } else {
+                $this->currentWebsiteCode = $rowData[ImportAdapter::COLUMN_WEBSITE];
+            }
+        }
+
+        if($this->currentUniqueAttr === null) {
+            $this->currentUniqueAttr = $this->scopeConfig->getValue(self::PATH_SWARMING_CREDITS_IMPORT_UNIQUE_ATTR, ScopeInterface::SCOPE_WEBSITE, $this->currentWebsiteCode);
+        }
+        if($this->currentUniqueLabel === null) {
+            $this->currentUniqueLabel = $this->scopeConfig->getValue(self::PATH_SWARMING_CREDITS_IMPORT_UNIQUE_LABEL, ScopeInterface::SCOPE_WEBSITE, $this->currentWebsiteCode) ?: $this->currentUniqueAttr;
+        }
+        if($this->currentCreateCustomer === null) {
+            $this->currentCreateCustomer = (int)$this->scopeConfig->getValue(self::PATH_SWARMING_CREDITS_IMPORT_CREATE, ScopeInterface::SCOPE_WEBSITE, $this->currentWebsiteCode) ?: 0;
+        }
+        if($this->alwaysSuppress === null) {
+            $this->alwaysSuppress = (int)$this->scopeConfig->getValue(self::PATH_SWARMING_CREDITS_IMPORT_SUPPRESS, ScopeInterface::SCOPE_WEBSITE, $this->currentWebsiteCode) ?: 0;
+        }
+
+        $customer = null;
+        if (empty($rowData[ImportAdapter::COLUMN_EMAIL]) && $this->currentUniqueAttr && !empty($rowData[$this->currentUniqueLabel])) {
+            /**
+             * Create the customer if they don't exist.  This is really bad practice to do during 'validate', but it seemed more sensible than
+             * breaking the requirement for a valid customer email address.  It's idempotent so it should be safe.
+             */
+            $customer = $this->getCustomerByAttr($this->currentUniqueAttr, $rowData[$this->currentUniqueLabel], $this->currentCreateCustomer, $this->currentWebsiteCode);
+            if(!$customer) {
+                $this->addRowError(ImportAdapter::ERROR_CUSTOMER_NOT_FOUND, $rowNumber);
+                $this->logger->error('Failed to create customer during Store Credit import using '.$this->currentUniqueAttr.'='.$rowData[$this->currentUniqueLabel]);
+            } else {
+                $rowData[ImportAdapter::COLUMN_EMAIL] = $customer->getEmail();
+                if(substr($customer->getEmail(), -1 * strlen(self::FAKE_EMAIL_SUFFIX)) === self::FAKE_EMAIL_SUFFIX) { // suppress email to a fake customer
+                    $rowData[TransactionInterface::SUPPRESS_NOTIFICATION] = '1';
+                }
+                $this->customerUniqueAttrToId[$rowData[$this->currentUniqueLabel]] = $customer->getId();
+            }
+        }
+
         if ($this->checkUniqueKey($rowData, $rowNumber)) {
-            $customerId = $this->getCustomerId($rowData[ImportAdapter::COLUMN_EMAIL], $rowData[ImportAdapter::COLUMN_WEBSITE]);
+            $customerId = $customer ? $customer->getId() : $this->getCustomerId($rowData[ImportAdapter::COLUMN_EMAIL], $rowData[ImportAdapter::COLUMN_WEBSITE]);
             if ($customerId === false) {
                 $this->addRowError(ImportAdapter::ERROR_CUSTOMER_NOT_FOUND, $rowNumber);
             } elseif ($this->creditStorage->getCustomerBalance($customerId) === false) {
@@ -139,6 +228,7 @@ class DataProcessor
             }
         }
 
+        $valid = !$errorAggregator->isRowInvalid($rowNumber);
         return !$errorAggregator->isRowInvalid($rowNumber);
     }
 
@@ -157,7 +247,7 @@ class DataProcessor
             $email = strtolower($rowData[ImportAdapter::COLUMN_EMAIL]);
             $website = $rowData[ImportAdapter::COLUMN_WEBSITE];
 
-            if (!\Zend_Validate::is($email, \Magento\Framework\Validator\EmailAddress::class)) {
+        if (!preg_match('/^\S+@[a-z0-9A-Z.-]+[a-z]$/', $email)) { // cheap replacement for Zend_Validate
                 $this->addRowError(ImportAdapter::ERROR_INVALID_EMAIL, $rowNumber, ImportAdapter::COLUMN_EMAIL);
             } elseif (!isset($this->websiteCodeToId[$website])) {
                 $this->addRowError(ImportAdapter::ERROR_INVALID_WEBSITE, $rowNumber, ImportAdapter::COLUMN_WEBSITE);
@@ -215,6 +305,39 @@ class DataProcessor
         return $email && $websiteId
             ? $this->customerStorage->getCustomerId($email, $websiteId)
             : false;
+    }
+
+    protected function getCustomerByAttr($uniqueAttr, $uniqueValue, $createCustomer, $websiteCode)
+    {
+        $customer = null;
+        $websiteId = $this->getWebsiteId($websiteCode);
+
+        $this->searchCriteria->addFilter($uniqueAttr, $uniqueValue, 'eq');
+        $this->searchCriteria->addFilter('website_id', $websiteId, 'eq');
+        $searchCriteria = $this->searchCriteria->create();
+        $list = $this->customerRepository->getList($searchCriteria);
+        if ($list->getTotalCount() > 0) {
+            foreach ($list->getItems() as $item) {
+                $customer = $item;
+                break;
+            }
+        }
+        if($customer === null) {
+            $customerData = ['email' => $uniqueValue . self::FAKE_EMAIL_SUFFIX, 'firstname' => $uniqueValue, 'lastname' => 'unknown'];
+            $customerEntity = $this->customerIFactory->create();
+            $customerEntity->setEmail($customerData['email']);
+            $customerEntity->setFirstname($customerData['firstname']);
+            $customerEntity->setLastname($customerData['lastname']);
+            $customerEntity->setWebsiteId($websiteId);
+            $customerEntity->setCustomAttribute($uniqueAttr, $uniqueValue);
+            try {
+                $customer = $this->customerAccountManagement->createAccount($customerEntity, null, "saml_sso");
+            }
+            catch(\Exception $e) {
+                $this->logger->error('Failed to create customer '.$customerData['email'].': '.$e->getMessage());
+            }
+        }
+        return $customer; // could be null
     }
 
     /**

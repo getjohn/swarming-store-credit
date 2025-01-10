@@ -332,6 +332,34 @@
                     </depends>
                 </field>
             </group>
+            <group id="import" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Import</label>
+
+                <field id="unique_attribute" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Unique Attribute for Customer ID</label>
+                    <comment>Defaults to 'email' - use the attribute code</comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+                <field id="unique_label" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Unique Attribute label</label>
+                    <comment>What label is in your CSV for the unique attribute - defaults to the same as above</comment>
+                    <depends>
+                        <field id="swarming_credits/general/active">1</field>
+                    </depends>
+                </field>
+                <field id="create_customer" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Create Customer if needed</label>
+				    <comment>Email will be set to {unique attr}@example.com</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="always_supress" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Always Suppress notification</label>
+				    <comment>No email will be sent during import</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
         </section>
     </system>
 </config>
