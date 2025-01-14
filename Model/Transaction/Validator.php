@@ -42,10 +42,11 @@ class Validator
     public function validate(array &$transactionData)
     {
         $messages = [];
-        $messages = array_merge($messages, $this->validateType($transactionData));
-        $messages = array_merge($messages, $this->validateAmount($transactionData));
-        $messages = array_merge($messages, $this->validateSummary($transactionData));
-        $messages = array_merge($messages, $this->validateSuppressNotification($transactionData));
+        $messages['type'] = $this->validateType($transactionData);
+        $messages['amount'] = $this->validateAmount($transactionData);
+        $messages['summary'] = $this->validateSummary($transactionData);
+        $messages['suppress_notification'] = $this->validateSuppressNotification($transactionData);
+        $messages = array_filter($messages); // remove any empty validation results
 
         $transactionData = $this->filterFields($transactionData);
 
@@ -86,18 +87,18 @@ class Validator
     private function validateAmount(array $transactionData)
     {
         $errors = [];
-        if (empty($transactionData[TransactionInterface::AMOUNT])) {
+        if (!isset($transactionData[TransactionInterface::AMOUNT]) || (string)$transactionData[TransactionInterface::AMOUNT] === '') {
             $errors[] = __('Amount is required.');
             return $errors;
         }
 
-        if ((string)$transactionData[TransactionInterface::AMOUNT] === (string)(floatval($transactionData[TransactionInterface::AMOUNT]))) {
+        if (!is_numeric($transactionData[TransactionInterface::AMOUNT])) {
             $errors[] = __('Amount must be a number.');
             return $errors;
         }
 
         if ($transactionData[TransactionInterface::AMOUNT] < 0) {
-            $errors[] = __('Amount must be greater than 0.');
+            $errors[] = __('Amount must be 0 or greater.');
         }
 
         return $errors;

@@ -46,7 +46,6 @@ class CreditsCustomer implements \Swarming\StoreCredit\Api\CreditsCustomerInterf
     public function update($customerId, array $adjustmentData)
     {
         $this->validateData($adjustmentData);
-
         $transaction = $this->transactionRepository->getNew(['data' => $adjustmentData]);
         $this->transactionCustomer->addTransaction($customerId, $transaction);
         return $transaction->getTransactionId();
@@ -78,10 +77,7 @@ class CreditsCustomer implements \Swarming\StoreCredit\Api\CreditsCustomerInterf
     {
         $errorMessages = $this->validator->validate($transactionData);
         if (!empty($errorMessages)) {
-            $validatorException = new \Magento\Framework\Validator\Exception(null, null);
-            foreach ($errorMessages as $message) {
-                $validatorException->addMessage(new \Magento\Framework\Message\Error($message));
-            }
+            $validatorException = new \Magento\Framework\Validator\Exception(null, null, $errorMessages);
             throw $validatorException;
         }
     }
