@@ -137,6 +137,8 @@ class DataProcessor
             );
         }
 
+        $rowData[ImportAdapter::COLUMN_ACTION] = strtolower($rowData[ImportAdapter::COLUMN_ACTION]);
+
         $rowData[TransactionInterface::SUMMARY] = !empty($rowData[ImportAdapter::COLUMN_SUMMARY])
             ? $rowData[ImportAdapter::COLUMN_SUMMARY]
             : null;
@@ -211,7 +213,7 @@ class DataProcessor
 
             if (empty($rowData[ImportAdapter::COLUMN_ACTION])) {
                 $this->addRowError(ImportAdapter::ERROR_ACTION_IS_EMPTY, $rowNumber);
-            } elseif (!in_array($rowData[ImportAdapter::COLUMN_ACTION], $this->supportedActions, true)) {
+            } elseif (!in_array(strtolower($rowData[ImportAdapter::COLUMN_ACTION]), $this->supportedActions, true)) {
                 $this->addRowError(ImportAdapter::ERROR_INVALID_ACTION, $rowNumber);
             }
 
