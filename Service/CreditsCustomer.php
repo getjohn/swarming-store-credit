@@ -77,8 +77,7 @@ class CreditsCustomer implements \Swarming\StoreCredit\Api\CreditsCustomerInterf
     {
         $errorMessages = $this->validator->validate($transactionData);
         if (!empty($errorMessages)) {
-            $validatorException = new \Magento\Framework\Validator\Exception(null, null, $errorMessages);
-            throw $validatorException;
+            throw new \Magento\Framework\Validator\Exception(null, null, $errorMessages);
         }
     }
 }

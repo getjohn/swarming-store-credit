@@ -228,7 +228,6 @@ class DataProcessor
             }
         }
 
-        $valid = !$errorAggregator->isRowInvalid($rowNumber);
         return !$errorAggregator->isRowInvalid($rowNumber);
     }
 
@@ -322,7 +321,7 @@ class DataProcessor
                 break;
             }
         }
-        if($customer === null) {
+        if($customer === null && $createCustomer) {
             $customerData = ['email' => $uniqueValue . self::FAKE_EMAIL_SUFFIX, 'firstname' => $uniqueValue, 'lastname' => 'unknown'];
             $customerEntity = $this->customerIFactory->create();
             $customerEntity->setEmail($customerData['email']);
