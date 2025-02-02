@@ -1,0 +1,52 @@
+diff --git a/vendor/magento/module-quote/Model/Cart/CartTotalRepository.php b/app/code/Magento/Quote/Model/Cart/CartTotalRepository.php
+index 7952a6e9c4b4c..fec137ad0a427 100644
+--- a/vendor/magento/module-quote/Model/Cart/CartTotalRepository.php
++++ b/vendor/magento/module-quote/Model/Cart/CartTotalRepository.php
+@@ -32,8 +32,6 @@ class CartTotalRepository implements CartTotalRepositoryInterface
+     private $totalsFactory;
+ 
+     /**
+-     * Quote repository.
+-     *
+      * @var \Magento\Quote\Api\CartRepositoryInterface
+      */
+     private $quoteRepository;
+@@ -109,11 +107,7 @@ public function get($cartId): QuoteTotalsInterface
+         $items = array_map([$this->itemConverter, 'modelToDataObject'], $quote->getAllVisibleItems());
+         $calculatedTotals = $this->totalsConverter->process($addressTotals);
+         $quoteTotals->setTotalSegments($calculatedTotals);
+-
+-        $amount = $quoteTotals->getGrandTotal() - $quoteTotals->getTaxAmount();
+-        $amount = $amount > 0 ? $amount : 0;
+         $quoteTotals->setCouponCode($this->couponService->get($cartId));
+-        $quoteTotals->setGrandTotal($amount);
+         $quoteTotals->setItems($items);
+         $quoteTotals->setItemsQty($quote->getItemsQty());
+         $quoteTotals->setBaseCurrencyCode($quote->getBaseCurrencyCode());
+diff --git a/vendor/magento/module-tax/view/frontend/web/js/view/checkout/summary/grand-total.js b/app/code/Magento/Tax/view/frontend/web/js/view/checkout/summary/grand-total.js
+index a5d281ba72bf1..3576d74c6062f 100644
+--- a/vendor/magento/module-tax/view/frontend/web/js/view/checkout/summary/grand-total.js
++++ b/vendor/magento/module-tax/view/frontend/web/js/view/checkout/summary/grand-total.js
+@@ -60,13 +60,20 @@ define([
+          * @return {*}
+          */
+         getGrandTotalExclTax: function () {
+-            var total = this.totals();
++            var total = this.totals(),
++                amount;
+ 
+             if (!total) {
+                 return 0;
+             }
+ 
+-            return this.getFormattedPrice(total['grand_total']);
++            amount = this.getFormattedPrice(total['grand_total'] - total['tax_amount']);
++
++            if (amount < 0) {
++                return 0;
++            }
++
++            return amount;
+         },
+ 
+         /**

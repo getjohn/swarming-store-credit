@@ -17,12 +17,25 @@
     "magento/module-quote": "^101.2",
     "magento/module-checkout": "^100.2.0",
     "magento/framework": "^102|^103",
-    "vaimo/composer-patches": "^3.24.1|^4.0.0"
+    "vaimo/composer-patches": "^4.0.0"
   },
   "autoload": {
     "files": ["registration.php"],
     "psr-4": {
       "Swarming\\StoreCredit\\": ""
+    }
+  },
+  "extra": {
+    "patches": {
+      "*": {
+        "ISSUE-34649 ACP2E-964 - https://github.com/magento/magento2/issues/34649 - grand_total incorrect with tax and discount": {
+          "source": "patches/ISSUE-34649.patch",
+          "cwd": "project",
+          "depends": {
+            "magento/product-community-edition": ">=v2.4.3 <2.4.6-p1"
+          }
+        }
+      }
     }
   }
 }
