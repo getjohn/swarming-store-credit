@@ -43,7 +43,7 @@ class PlaceAfter implements \Magento\Framework\Event\ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         /** @var \Magento\Sales\Model\Order $order */
-        $order = $observer->getData('order');
+        $order = $observer->getEvent()->getOrder();//getData('order');
 
         if (!empty($order->getOrigData())) { // Only on the first saving, after placement
             return;

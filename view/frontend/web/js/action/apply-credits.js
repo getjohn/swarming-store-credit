@@ -26,7 +26,7 @@ define(
                         totals.isLoading(false);
                     });
                 }
-            ).error(
+            ).fail(
                 function (response) {
                     totals.isLoading(false);
                     errorProcessor.process(response);
